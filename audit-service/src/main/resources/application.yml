@@ -1,15 +1,15 @@
 server:
-  port: 81
+  port: 82
   error:
     include-message: always
     whitelabel:
       enabled: true
 spring:
   application:
-    name: task-service
+    name: audit-service
   datasource:
     name: datasource
-    url: jdbc:postgresql://localhost:5432/mstask
+    url: jdbc:postgresql://localhost:5432/msaudit
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -32,7 +32,7 @@ spring:
       max-lifetime: 1800000
       maximum-pool-size : 80
       minimum-idle: 10
-      pool-name : MsTaskConnPool
+      pool-name : MsAuditConnPool
   jpa:
     hibernate:
       ddl-auto: update
@@ -46,27 +46,18 @@ spring:
         jdbc.lob.non_contextual_creation: true
         order_updates: true
         batch_versioned_data: true
+config:
+  housekeep:
+    interval:
+      audit: 7 days
+  scheduler:
+    audit:
+      doHousekeepAudit: "0 0 4 * * ?" #everyday 4:00:00 a.m.
+  internal:
+    api:
+      micro:
+        path: '/api/audit-service'
+      key: 4da85148-6e25-4a2e-9744-382adf1c3e9c
 swagger:
   host: "http://localhost:${server.port}"
-  contextPath: "/api/task"
-springdoc:
-  swagger-ui:
-    enabled: true
-    path: "/index.html"
-    doc-expansion: none
-    operationsSorter: alpha
-    tagsSorter: alpha
-    disable-swagger-default-url: true
-    display-request-duration: true
-config:
-  webclient:
-    connectTimeoutMillis: 5000
-    responseTimeoutMillis: 5000
-    readTimeoutMillis: 5000
-    writeTimeoutMillis: 5000
-    sslBypass: true
-integration:
-  audit:
-    baseUrl: "http://localhost:82"
-    url: "${integration.audit.baseUrl}/log/v1/create"
-    apiKey: 4da85148-6e25-4a2e-9744-382adf1c3e9c
+  contextPath: "/api/audit"

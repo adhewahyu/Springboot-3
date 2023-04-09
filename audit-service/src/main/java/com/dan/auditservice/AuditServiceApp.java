@@ -1,4 +1,4 @@
-package com.dan.taskservice;
+package com.dan.auditservice;
 
 import com.dan.shared.sharedlibrary.configuration.WebClientConfiguration;
 import com.dan.shared.sharedlibrary.util.CommonUtility;
@@ -7,18 +7,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-@ComponentScan(value = {"com.dan.taskservice", "com.dan.shared.sharedlibrary"},
+@EnableScheduling
+@ComponentScan(value = {"com.dan.auditservice","com.dan.shared.sharedlibrary"},
         includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = {
                 CommonUtility.class,
-                WebClientConfiguration.class
+                WebClientConfiguration.class,
         }))
-@EntityScan(basePackages = {"com.dan.taskservice.model.entity"})
+@EntityScan("com.dan.auditservice.model.entity")
+@EnableJpaRepositories("com.dan.auditservice.repository")
 @SpringBootApplication
-public class TaskServiceApp {
+public class AuditServiceApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(TaskServiceApp.class, args);
+        SpringApplication.run(AuditServiceApp.class, args);
     }
 
 }

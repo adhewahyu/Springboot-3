@@ -56,8 +56,14 @@ config:
   internal:
     api:
       micro:
-        path: '/api/audit-service'
+        path: "/api/audit-service"
       key: 4da85148-6e25-4a2e-9744-382adf1c3e9c
+  webclient:
+    connectTimeoutMillis: 5000
+    responseTimeoutMillis: 5000
+    readTimeoutMillis: 5000
+    writeTimeoutMillis: 5000
+    sslBypass: true
 swagger:
   host: "http://localhost:${server.port}"
-  contextPath: "/api/audit"
+  contextPath: "${config.internal.api.micro.path}

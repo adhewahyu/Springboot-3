@@ -65,6 +65,11 @@ config:
     readTimeoutMillis: 5000
     writeTimeoutMillis: 5000
     sslBypass: true
+  internal:
+    api:
+      micro:
+        path: "/api/task-service"
+      key: 02b689a8-9e62-4e55-8b24-eebdb27c4eec
 integration:
   audit:
     baseUrl: "http://localhost:82"

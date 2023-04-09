@@ -2,7 +2,6 @@ package com.dan.taskservice.service;
 
 import com.dan.shared.sharedlibrary.model.response.ValidationResponse;
 import com.dan.shared.sharedlibrary.service.BaseService;
-import com.dan.shared.sharedlibrary.util.CommonConstants;
 import com.dan.shared.sharedlibrary.util.CommonUtility;
 import com.dan.taskservice.adaptor.audit.CreateLogAdaptor;
 import com.dan.taskservice.enums.TaskStatus;
@@ -14,12 +13,9 @@ import com.dan.taskservice.repository.TaskRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 @Transactional
 @Service
@@ -52,7 +48,6 @@ public class CreateTaskService implements BaseService<CreateTaskRequest, Validat
         task.setCreatedDate(new Date(input.getCreatedDate()));
         taskRepository.save(task);
         if(taskRepository.existsById(task.getId())){
-            log.info("Insert to Audit Log");
             createLogAdaptor.execute(CreateLogRequest.builder()
                     .activity(input.getAction())
                     .module(input.getModule())

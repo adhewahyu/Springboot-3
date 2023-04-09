@@ -31,8 +31,8 @@ public class TaskController extends BaseController {
             @ApiResponse(responseCode = "500", description = "Oops")
     })
     @PostMapping(value = "/v1/create")
-    public ResponseEntity<Mono<RestResponse>> createNewTask(@RequestBody CreateTaskRequest request){
-        return new ResponseEntity<>(Mono.just(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, createTaskService.execute(request).getResult())), HttpStatus.OK);
+    public Mono<ResponseEntity<RestResponse>> createNewTask(@RequestBody CreateTaskRequest request){
+        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, createTaskService.execute(request).getResult()), HttpStatus.OK));
     }
 
     @Operation(summary = "Submit Task", description = "API to submit task")
@@ -43,8 +43,8 @@ public class TaskController extends BaseController {
             @ApiResponse(responseCode = "500", description = "Oops")
     })
     @PutMapping(value = "/v1/submit")
-    public ResponseEntity<Mono<RestResponse>> submitTask(@RequestBody SubmitTaskRequest request){
-        return new ResponseEntity<>(Mono.just(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, submitTaskService.execute(request).getResult())), HttpStatus.OK);
+    public Mono<ResponseEntity<RestResponse>> submitTask(@RequestBody SubmitTaskRequest request){
+        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, submitTaskService.execute(request).getResult()), HttpStatus.OK));
     }
 
 }

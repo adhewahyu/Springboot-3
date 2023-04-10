@@ -13,6 +13,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
@@ -33,21 +35,12 @@ public class CreateLogAdaptor {
                 .uri(url)
                 .headers(httpHeaders -> getHttpHeaders())
                 .body(Mono.just(createLogRequest), CreateLogRequest.class)
-                .exchangeToMono(clientResponse -> {
-                    log.info("status code = {}", clientResponse.statusCode().value());
-                    if (clientResponse.statusCode().is2xxSuccessful()) {
-                        return clientResponse.toEntity(RestResponse.class);
-                    } else if (clientResponse.statusCode().is4xxClientError()) {
-                        log.info("Error 4xx");
-                        throw new ResponseStatusException(clientResponse.statusCode(), clientResponse.logPrefix());
-                    } else if (clientResponse.statusCode().is5xxServerError()) {
-                        log.info("Error 5xx");
-                        throw new ResponseStatusException(clientResponse.statusCode(), clientResponse.logPrefix());
-                    } else {
-                        log.info("Error Unknown");
-                        throw new ResponseStatusException(clientResponse.statusCode(), clientResponse.logPrefix());
-                    }
-                }).subscribe(data -> log.info("response = {}", JSON.toJSONString(data.getBody())));
+                .retrieve()
+                .onStatus(httpStatusCode -> (httpStatusCode.is4xxClientError() || httpStatusCode.is5xxServerError()),
+                        clientResponse -> clientResponse.bodyToMono(Map.class)
+                                .flatMap(error -> Mono.error(new ResponseStatusException(clientResponse.statusCode(), error.get("message").toString()))))
+                .bodyToMono(RestResponse.class)
+                .subscribe(data -> log.info("response = {}", JSON.toJSONString(data.getData())));
     }
 
     public HttpHeaders getHttpHeaders() {

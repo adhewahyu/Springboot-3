@@ -11,7 +11,7 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(value = {"com.dan.taskservice", "com.dan.shared.sharedlibrary"},
         includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = {
                 CommonUtility.class,
-                WebClientConfiguration.class
+                WebClientConfiguration.class,
         }))
 @EntityScan(basePackages = {"com.dan.taskservice.model.entity"})
 @SpringBootApplication

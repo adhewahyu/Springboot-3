@@ -49,10 +49,11 @@ spring:
 config:
   housekeep:
     interval:
-      audit: 7 days
+      audit: "7 days"
   scheduler:
     audit:
-      doHousekeepAudit: "0 0 4 * * ?" #everyday 4:00:00 a.m.
+      #doHousekeepAudit: "0 0 4 * * ?" #everyday 4:00:00 a.m.
+      doHousekeepAudit: "*/5 * * * * ?" #everyday 5 seconds
   internal:
     api:
       micro:
@@ -66,4 +67,4 @@ config:
     sslBypass: true
 swagger:
   host: "http://localhost:${server.port}"
-  contextPath: "${config.internal.api.micro.path}
+  contextPath: "${config.internal.api.micro.path}"

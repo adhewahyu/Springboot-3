@@ -48,7 +48,7 @@ spring:
         batch_versioned_data: true
 swagger:
   host: "http://localhost:${server.port}"
-  contextPath: "/api/task"
+  contextPath: "${config.internal.api.micro.path}}"
 springdoc:
   swagger-ui:
     enabled: true

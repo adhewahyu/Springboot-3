@@ -4,6 +4,7 @@ import com.dan.shared.sharedlibrary.util.CommonUtility;
 import com.dan.taskservice.enums.TaskAction;
 import com.dan.taskservice.enums.TaskStatus;
 import com.dan.taskservice.model.request.ValidateTaskRequest;
+import com.dan.taskservice.util.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -38,23 +39,15 @@ public class ValidateTaskService {
     }
 
     private void doCheckSubmittedTask(ValidateTaskRequest request){
-        doCheckId(request.getId());
         doCheckTask(false, request.getTaskAfter());
         doCheckStatus(request.getStatus());
         commonUtility.doCheckMakerChecker(false, request.getUpdatedBy(), request.getUpdatedDate());
     }
 
-    private void doCheckId(String id){
-        if(StringUtils.isEmpty(id)){
-            log.error("Id is required");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id is required");
-        }
-    }
-
     private void doCheckModule(String module){
         if(StringUtils.isEmpty(module)){
-            log.error("Module is required");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Module is required");
+            log.error(Constants.ERR_MSG_MODULE_REQUIRED);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.ERR_MSG_MODULE_REQUIRED);
         }
     }
 
@@ -68,23 +61,23 @@ public class ValidateTaskService {
 
     private void doCheckAction(String action){
         if(StringUtils.isEmpty(action)){
-            log.error("Action is required");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Action is required");
+            log.error(Constants.ERR_MSG_ACTION_REQUIRED);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.ERR_MSG_ACTION_REQUIRED);
         }
         if(Arrays.stream(TaskAction.values()).noneMatch(data -> data.getValue().equals(action))){
-            log.error("Invalid action type");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid action type");
+            log.error(Constants.ERR_MSG_ACTION_INVALID);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.ERR_MSG_ACTION_INVALID);
         }
     }
 
     private void doCheckStatus(Integer status){
         if(ObjectUtils.isEmpty(status)){
-            log.error("Status is required");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Status is required");
+            log.error(Constants.ERR_MSG_STATUS_REQUIRED);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.ERR_MSG_STATUS_REQUIRED);
         }
         if(Arrays.stream(TaskStatus.values()).noneMatch(data -> data.getValue().compareTo(status) == 0)){
-            log.error("Invalid status type");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid status type");
+            log.error(Constants.ERR_MSG_STATUS_INVALID);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.ERR_MSG_STATUS_INVALID);
         }
     }
 

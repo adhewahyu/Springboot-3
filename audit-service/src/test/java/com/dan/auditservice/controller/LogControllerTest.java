@@ -2,7 +2,6 @@ package com.dan.auditservice.controller;
 
 import com.dan.auditservice.model.request.CreateLogRequest;
 import com.dan.auditservice.service.CreateLogService;
-import com.dan.shared.sharedlibrary.model.response.RestResponse;
 import com.dan.shared.sharedlibrary.model.response.ValidationResponse;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +15,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
-import reactor.core.publisher.Mono;
 
-import java.util.Objects;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j

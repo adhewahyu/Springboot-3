@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service;
 @Transactional
 @Service
 @RequiredArgsConstructor
-public class HousekeepActivityLogService implements BaseService<BaseRequest, ValidationResponse> {
+public class HousekeepCommLogService implements BaseService<BaseRequest, ValidationResponse> {
 
-    @Value("${config.housekeep.interval.activity}")
-    private String intervalHousekeepActivity;
+    @Value("${config.housekeep.interval.comm}")
+    private String intervalHousekeepComm;
 
     private final JdbcTemplate jdbcTemplate;
 
     @Override
     public ValidationResponse execute(BaseRequest input) {
-        String query = " DELETE FROM activity_logs WHERE created_date < (CURRENT_DATE - interval '"+ intervalHousekeepActivity + "') ";
+        String query = " DELETE FROM comm_logs WHERE created_date < (CURRENT_DATE - interval '"+ intervalHousekeepComm + "') ";
         jdbcTemplate.execute(query);
         return ValidationResponse.builder().result(true).build();
     }

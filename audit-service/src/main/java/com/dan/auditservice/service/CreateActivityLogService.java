@@ -28,14 +28,14 @@ public class CreateActivityLogService implements BaseService<CreateActivityLogRe
 
     @Override
     public ValidationResponse execute(CreateActivityLogRequest input) {
-        log.info("Create Log - called");
+        log.info("Create Activity Log - called");
         doValidateRequest(input);
         ActivityLog logs = new ActivityLog();
         BeanUtils.copyProperties(input,logs);
         logs.setId(commonUtility.getRandomUUID());
         logs.setCreatedDate(new Date(input.getCreatedDate()));
         activityLogRepository.save(logs);
-        log.info("Create Log - saved successfully");
+        log.info("Create Activity Log - saved successfully");
         return ValidationResponse.builder().result(true).build();
     }
 

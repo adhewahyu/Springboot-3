@@ -2,6 +2,8 @@ package com.dan.shared.sharedlibrary.util;
 
 public class CommonConstants {
 
+    public static final String SYSTEM = "SYSTEM";
+
     public static final String REQ_HEADER_APIKEY = "apiKey";
     public static final String REQ_HEADER_AUTHORIZATION = "authorization";
     public static final String REQ_HEADER_AUTHORIZATION_CUSTOMER = "authorizationCustomer";

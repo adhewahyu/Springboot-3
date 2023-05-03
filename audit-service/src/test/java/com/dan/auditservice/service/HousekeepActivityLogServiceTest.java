@@ -17,13 +17,13 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
-class HousekeepLogServiceTest {
+class HousekeepActivityLogServiceTest {
 
     @Mock
     private JdbcTemplate jdbcTemplate;
 
     @InjectMocks
-    private HousekeepLogService housekeepLogService;
+    private HousekeepActivityLogService housekeepActivityLogService;
 
     @BeforeEach
     void init(){
@@ -33,11 +33,11 @@ class HousekeepLogServiceTest {
     @Test
     void doTest_success(){
         String intervalHousekeepAudit = "7 days";
-        ReflectionTestUtils.setField(housekeepLogService, "intervalHousekeepAudit", intervalHousekeepAudit);
-        ReflectionTestUtils.setField(housekeepLogService, "jdbcTemplate", jdbcTemplate);
+        ReflectionTestUtils.setField(housekeepActivityLogService, "intervalHousekeepAudit", intervalHousekeepAudit);
+        ReflectionTestUtils.setField(housekeepActivityLogService, "jdbcTemplate", jdbcTemplate);
         Mockito.doNothing().when(jdbcTemplate).execute(Mockito.anyString());
         ValidationResponse expectedResponse = ValidationResponse.builder().result(true).build();
-        ValidationResponse actualResponse = housekeepLogService.execute(new BaseRequest());
+        ValidationResponse actualResponse = housekeepActivityLogService.execute(new BaseRequest());
         Assertions.assertEquals(expectedResponse, actualResponse);
     }
 

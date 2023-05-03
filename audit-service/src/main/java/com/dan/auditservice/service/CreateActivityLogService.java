@@ -1,8 +1,8 @@
 package com.dan.auditservice.service;
 
-import com.dan.auditservice.model.entity.Log;
-import com.dan.auditservice.model.request.CreateLogRequest;
-import com.dan.auditservice.repository.LogRepository;
+import com.dan.auditservice.model.entity.ActivityLog;
+import com.dan.auditservice.model.request.CreateActivityLogRequest;
+import com.dan.auditservice.repository.ActivityLogRepository;
 import com.dan.auditservice.util.Constants;
 import com.dan.shared.sharedlibrary.model.response.ValidationResponse;
 import com.dan.shared.sharedlibrary.service.BaseService;
@@ -21,25 +21,25 @@ import java.util.Date;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class CreateLogService implements BaseService<CreateLogRequest, ValidationResponse> {
+public class CreateActivityLogService implements BaseService<CreateActivityLogRequest, ValidationResponse> {
 
-    private final LogRepository logRepository;
+    private final ActivityLogRepository activityLogRepository;
     private final CommonUtility commonUtility;
 
     @Override
-    public ValidationResponse execute(CreateLogRequest input) {
+    public ValidationResponse execute(CreateActivityLogRequest input) {
         log.info("Create Log - called");
         doValidateRequest(input);
-        Log logs = new Log();
+        ActivityLog logs = new ActivityLog();
         BeanUtils.copyProperties(input,logs);
         logs.setId(commonUtility.getRandomUUID());
         logs.setCreatedDate(new Date(input.getCreatedDate()));
-        logRepository.save(logs);
+        activityLogRepository.save(logs);
         log.info("Create Log - saved successfully");
         return ValidationResponse.builder().result(true).build();
     }
 
-    private void doValidateRequest(CreateLogRequest input) {
+    private void doValidateRequest(CreateActivityLogRequest input) {
         if(StringUtils.isEmpty(input.getModule())){
             log.error(Constants.ERR_MSG_MODULE_REQUIRED);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.ERR_MSG_MODULE_REQUIRED);

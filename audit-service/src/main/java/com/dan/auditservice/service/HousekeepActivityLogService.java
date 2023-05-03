@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Transactional
 @Service
 @RequiredArgsConstructor
-public class HousekeepLogService implements BaseService<BaseRequest, ValidationResponse> {
+public class HousekeepActivityLogService implements BaseService<BaseRequest, ValidationResponse> {
 
     @Value("${config.housekeep.interval.audit}")
     private String intervalHousekeepAudit;

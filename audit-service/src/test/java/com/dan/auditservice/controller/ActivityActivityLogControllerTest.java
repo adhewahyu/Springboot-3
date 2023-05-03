@@ -1,7 +1,7 @@
 package com.dan.auditservice.controller;
 
-import com.dan.auditservice.model.request.CreateLogRequest;
-import com.dan.auditservice.service.CreateLogService;
+import com.dan.auditservice.model.request.CreateActivityLogRequest;
+import com.dan.auditservice.service.CreateActivityLogService;
 import com.dan.shared.sharedlibrary.model.response.ValidationResponse;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
 import lombok.extern.slf4j.Slf4j;
@@ -20,13 +20,13 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
-class LogControllerTest {
+class ActivityActivityLogControllerTest {
 
     @Mock
-    private CreateLogService createLogService;
+    private CreateActivityLogService createActivityLogService;
 
     @InjectMocks
-    private LogController logController;
+    private ActivityLogController activityLogController;
 
     @BeforeEach
     void init(){
@@ -35,15 +35,15 @@ class LogControllerTest {
 
     @Test
     void doTest_createLog_success(){
-        ReflectionTestUtils.setField(logController, "createLogService", createLogService);
-        CreateLogRequest createLogRequest = CreateLogRequest.builder()
+        ReflectionTestUtils.setField(activityLogController, "createLogService", createActivityLogService);
+        CreateActivityLogRequest createActivityLogRequest = CreateActivityLogRequest.builder()
                 .module("test")
                 .activity("test")
                 .createdBy("tester")
                 .createdDate(0L)
                 .build();
-        Mockito.when(createLogService.execute(Mockito.any())).thenReturn(ValidationResponse.builder().result(true).build());
-        logController.createLog(createLogRequest).subscribe(response ->{
+        Mockito.when(createActivityLogService.execute(Mockito.any())).thenReturn(ValidationResponse.builder().result(true).build());
+        activityLogController.createLog(createActivityLogRequest).subscribe(response ->{
            Assertions.assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
            Assertions.assertEquals(true, response.getBody().getResult());
            Assertions.assertEquals(CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, response.getBody().getMessage());

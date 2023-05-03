@@ -1,8 +1,8 @@
 package com.dan.auditservice.service;
 
-import com.dan.auditservice.model.entity.Log;
-import com.dan.auditservice.model.request.CreateLogRequest;
-import com.dan.auditservice.repository.LogRepository;
+import com.dan.auditservice.model.entity.ActivityLog;
+import com.dan.auditservice.model.request.CreateActivityLogRequest;
+import com.dan.auditservice.repository.ActivityLogRepository;
 import com.dan.auditservice.util.Constants;
 import com.dan.shared.sharedlibrary.model.response.ValidationResponse;
 import com.dan.shared.sharedlibrary.util.CommonUtility;
@@ -24,16 +24,16 @@ import org.springframework.web.server.ResponseStatusException;
 @ExtendWith(MockitoExtension.class)
 @Slf4j
 @RequiredArgsConstructor
-class CreateLogServiceTest {
+class CreateActivityLogServiceTest {
 
     @Mock
-    private LogRepository logRepository;
+    private ActivityLogRepository activityLogRepository;
 
     @Mock
     private CommonUtility commonUtility;
 
     @InjectMocks
-    private CreateLogService createLogService;
+    private CreateActivityLogService createActivityLogService;
 
     @BeforeEach
     void init(){
@@ -43,7 +43,7 @@ class CreateLogServiceTest {
     @Test
     void doTest_failedModuleRequired(){
         try{
-            createLogService.execute(CreateLogRequest.builder()
+            createActivityLogService.execute(CreateActivityLogRequest.builder()
                     .module(null)
                     .build());
         } catch (ResponseStatusException rse){
@@ -55,7 +55,7 @@ class CreateLogServiceTest {
     @Test
     void doTest_failedActivityRequired(){
         try{
-            createLogService.execute(CreateLogRequest.builder()
+            createActivityLogService.execute(CreateActivityLogRequest.builder()
                     .module("test")
                     .activity(null)
                     .build());
@@ -68,7 +68,7 @@ class CreateLogServiceTest {
     @Test
     void doTest_failedCreatedDateRequired(){
         try{
-            createLogService.execute(CreateLogRequest.builder()
+            createActivityLogService.execute(CreateActivityLogRequest.builder()
                     .module("test")
                     .activity("test")
                     .createdDate(null)
@@ -82,7 +82,7 @@ class CreateLogServiceTest {
     @Test
     void doTest_failedCreatedByRequired(){
         try{
-            createLogService.execute(CreateLogRequest.builder()
+            createActivityLogService.execute(CreateActivityLogRequest.builder()
                     .module("test")
                     .activity("test")
                     .createdDate(0L)
@@ -96,12 +96,12 @@ class CreateLogServiceTest {
 
     @Test
     void doTest_success(){
-        ReflectionTestUtils.setField(createLogService, "logRepository", logRepository);
-        ReflectionTestUtils.setField(createLogService, "commonUtility", commonUtility);
+        ReflectionTestUtils.setField(createActivityLogService, "logRepository", activityLogRepository);
+        ReflectionTestUtils.setField(createActivityLogService, "commonUtility", commonUtility);
         Mockito.when(commonUtility.getRandomUUID()).thenReturn("1234");
-        Mockito.when(logRepository.save(Mockito.any())).thenReturn(new Log());
+        Mockito.when(activityLogRepository.save(Mockito.any())).thenReturn(new ActivityLog());
         ValidationResponse expectedResponse = ValidationResponse.builder().result(true).build();
-        ValidationResponse actualResponse = createLogService.execute(CreateLogRequest.builder()
+        ValidationResponse actualResponse = createActivityLogService.execute(CreateActivityLogRequest.builder()
                 .module("test")
                 .activity("test")
                 .createdDate(0L)

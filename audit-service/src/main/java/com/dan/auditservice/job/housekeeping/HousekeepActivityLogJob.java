@@ -1,6 +1,6 @@
 package com.dan.auditservice.job.housekeeping;
 
-import com.dan.auditservice.service.HousekeepLogService;
+import com.dan.auditservice.service.HousekeepActivityLogService;
 import com.dan.shared.sharedlibrary.model.request.BaseRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,15 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class HousekeepLogJob {
+public class HousekeepActivityLogJob {
 
-    private final HousekeepLogService housekeepLogService;
+    private final HousekeepActivityLogService housekeepActivityLogService;
 
     @Scheduled(cron = "${config.scheduler.audit.doHousekeepAudit}")
     @SchedulerLock(name = "doHousekeepAudit", lockAtLeastFor = "15S", lockAtMostFor = "20S")
     public void execute(){
         log.info(">> housekeepAuditService [start]");
-        housekeepLogService.execute(new BaseRequest());
+        housekeepActivityLogService.execute(new BaseRequest());
         log.info(">> housekeepAuditService [end]");
     }
 

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LogResponse extends BaseResponse {
+public class ActivityLogResponse extends BaseResponse {
 
     private String id;
     private String createdBy;

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateLogRequest extends BaseRequest {
+public class CreateActivityLogRequest extends BaseRequest {
 
     @Schema(description = "module", example = "MY-MODULE")
     private String module;

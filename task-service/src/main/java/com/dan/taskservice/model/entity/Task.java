@@ -1,16 +1,14 @@
 package com.dan.taskservice.model.entity;
 
 import com.dan.shared.sharedlibrary.model.entity.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "tasks", indexes = {
-
+        @Index(name = "tasks_idx_0", columnList = "module"),
+        @Index(name = "tasks_idx_1", columnList = "status")
 })
 public class Task extends BaseEntity {
 

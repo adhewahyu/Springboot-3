@@ -8,10 +8,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "logs", indexes = {
-    @Index(name = "logs_indx_0", columnList = "module")
+@Table(name = "activity_logs", indexes = {
+    @Index(name = "activity_logs_idx_0", columnList = "module")
 })
-public class Log {
+public class ActivityLog {
 
     @Id
     @Column(name = "id", updatable = false, nullable = false, length = 50)

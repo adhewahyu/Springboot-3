@@ -1,7 +1,7 @@
 package com.dan.auditservice.controller;
 
-import com.dan.auditservice.model.request.CreateLogRequest;
-import com.dan.auditservice.service.CreateLogService;
+import com.dan.auditservice.model.request.CreateActivityLogRequest;
+import com.dan.auditservice.service.CreateActivityLogService;
 import com.dan.shared.sharedlibrary.controller.BaseController;
 import com.dan.shared.sharedlibrary.model.response.RestResponse;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/log")
+@RequestMapping("/log/activity")
 @RequiredArgsConstructor
 @Slf4j
-public class LogController extends BaseController {
+public class ActivityLogController extends BaseController {
 
-    private final CreateLogService createLogService;
+    private final CreateActivityLogService createActivityLogService;
 
     @Operation(summary = "Create New Log", description = "API to create new log")
     @ApiResponses(value = {
@@ -31,8 +31,8 @@ public class LogController extends BaseController {
     })
     @PostMapping("/v1/create")
     public Mono<ResponseEntity<RestResponse>> createLog(
-            @RequestBody CreateLogRequest request){
-        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, createLogService.execute(request).getResult()), HttpStatus.OK));
+            @RequestBody CreateActivityLogRequest request){
+        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, createActivityLogService.execute(request).getResult()), HttpStatus.OK));
     }
 
 

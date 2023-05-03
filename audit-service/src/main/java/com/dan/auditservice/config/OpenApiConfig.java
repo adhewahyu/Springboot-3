@@ -19,7 +19,8 @@ public class OpenApiConfig {
     private static final String BASE_PACKAGE = "com.dan.auditservice.controller";
 
     private static final String[] LOG_APIS = {
-            "/log/v1/create",
+            "/log/activity/v1/create",
+            "/log/comm/v1/create"
     };
 
     @Bean

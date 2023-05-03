@@ -1,8 +1,6 @@
 package com.dan.auditservice.controller;
 
-import com.dan.auditservice.model.request.CreateActivityLogRequest;
 import com.dan.auditservice.model.request.CreateCommLogRequest;
-import com.dan.auditservice.service.CreateActivityLogService;
 import com.dan.auditservice.service.CreateCommLogService;
 import com.dan.shared.sharedlibrary.controller.BaseController;
 import com.dan.shared.sharedlibrary.model.response.RestResponse;
@@ -10,6 +8,7 @@ import com.dan.shared.sharedlibrary.util.CommonConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,6 +23,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/log/comm")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Comm Log APIs", description = "APIs for tracking API communication between systems")
 public class CommLogController extends BaseController {
 
     private final CreateCommLogService createCommLogService;

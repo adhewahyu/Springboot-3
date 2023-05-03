@@ -8,6 +8,7 @@ import com.dan.shared.sharedlibrary.util.CommonConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/log/activity")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Activity Log APIs", description = "APIs for tracking activities from user")
 public class ActivityLogController extends BaseController {
 
     private final CreateActivityLogService createActivityLogService;

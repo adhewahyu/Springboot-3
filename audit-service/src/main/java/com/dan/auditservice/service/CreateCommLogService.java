@@ -29,7 +29,6 @@ public class CreateCommLogService implements BaseService<CreateCommLogRequest, V
 
     @Override
     public ValidationResponse execute(CreateCommLogRequest input) {
-        log.info("Create Comm Log - called");
         doValidateRequest(input);
         CommLog logs = new CommLog();
         BeanUtils.copyProperties(input,logs);
@@ -37,7 +36,6 @@ public class CreateCommLogService implements BaseService<CreateCommLogRequest, V
         logs.setCreatedDate(new Date(input.getCreatedDate()));
         logs.setCreatedBy(CommonConstants.SYSTEM);
         commLogRepository.save(logs);
-        log.info("Create Comm Log - saved successfully");
         return ValidationResponse.builder().result(true).build();
     }
 

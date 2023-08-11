@@ -42,7 +42,7 @@ public class CreateTaskAdaptor {
                         clientResponse -> clientResponse.bodyToMono(Map.class)
                                 .flatMap(error -> Mono.error(new ResponseStatusException(clientResponse.statusCode(), error.get("message").toString()))))
                 .bodyToMono(RestResponse.class)
-                .subscribe(data -> log.info("response = {}", JSON.toJSONString(data.getData())));
+                .subscribe(data -> log.info("response = {}", JSON.toJSONString(data)));
     }
 
     public void getHttpHeaders(HttpHeaders httpHeaders) {

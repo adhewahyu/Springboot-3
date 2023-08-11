@@ -20,7 +20,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CreateLogAdaptor {
 
-    @Value("${integration.audit.url}")
+    @Value("${integration.audit.createLogUrl}")
     private String url;
 
     @Value("${integration.audit.apiKey}")
@@ -33,7 +33,7 @@ public class CreateLogAdaptor {
         webClientBasic
                 .method(HttpMethod.POST)
                 .uri(url)
-                .headers(httpHeaders -> getHttpHeaders())
+                .headers(this::getHttpHeaders)
                 .body(Mono.just(createLogRequest), CreateLogRequest.class)
                 .retrieve()
                 .onStatus(httpStatusCode -> (httpStatusCode.is4xxClientError() || httpStatusCode.is5xxServerError()),
@@ -43,12 +43,10 @@ public class CreateLogAdaptor {
                 .subscribe(data -> log.info("response = {}", JSON.toJSONString(data.getData())));
     }
 
-    public HttpHeaders getHttpHeaders() {
-        HttpHeaders httpHeaders = new HttpHeaders();
+    public void getHttpHeaders(HttpHeaders httpHeaders) {
         httpHeaders.add(CommonConstants.REQ_HEADER_APIKEY, internalApiKey);
         httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
-        return httpHeaders;
     }
 
 }

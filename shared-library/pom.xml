@@ -29,6 +29,7 @@
         <java.version>17</java.version>
         <alibaba-fastjson2.version>2.0.26</alibaba-fastjson2.version>
         <apache-common-lang3.version>3.12.0</apache-common-lang3.version>
+        <netty-resolver-dns-native-macos.version>4.1.73.Final</netty-resolver-dns-native-macos.version>
     </properties>
     <dependencies>
         <dependency>
@@ -53,6 +54,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${apache-common-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>${netty-resolver-dns-native-macos.version}</version>
+            <classifier>osx-aarch_64</classifier>
         </dependency>
     </dependencies>
 

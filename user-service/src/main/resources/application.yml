@@ -1,0 +1,90 @@
+server:
+  port: 83
+  error:
+    include-message: always
+    whitelabel:
+      enabled: true
+spring:
+  application:
+    name: user-service
+  datasource:
+    name: datasource
+    url: jdbc:postgresql://localhost:5432/msuser
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    filters: stat
+    maxActive: 80
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 80
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      max-lifetime: 1800000
+      maximum-pool-size : 80
+      minimum-idle: 10
+      pool-name : MsUserConnPool
+  jpa:
+    hibernate:
+      ddl-auto: update
+      connection:
+        provider_class : "com.zaxxer.hikari.hibernate.HikariConnectionProvider"
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl.auto: update
+        jdbc.lob.non_contextual_creation: true
+        order_updates: true
+        batch_versioned_data: true
+  sql:
+    init:
+      platform: postgres
+swagger:
+  host: "http://localhost:${server.port}"
+  contextPath: "${config.internal.api.micro.path}}"
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: "/index.html"
+    doc-expansion: none
+    operationsSorter: alpha
+    tagsSorter: alpha
+    disable-swagger-default-url: true
+    display-request-duration: true
+  webjars:
+    prefix: ""
+config:
+  webclient:
+    connectTimeoutMillis: 5000
+    responseTimeoutMillis: 5000
+    readTimeoutMillis: 5000
+    writeTimeoutMillis: 5000
+    sslBypass: true
+  internal:
+    api:
+      micro:
+        path: "/api/user-service"
+      key: 6804b89c-aabe-4be0-8335-651679118d42
+  housekeep:
+    interval:
+      user: "7 days"
+  scheduler:
+    doInactiveUser: "0 0 4 * * ?" #everyday 4:00:00 a.m.
+integration:
+  audit:
+    baseUrl: "http://localhost:82"
+    createLogUrl: "${integration.audit.baseUrl}/log/activity/v1/create"
+    apiKey: 4da85148-6e25-4a2e-9744-382adf1c3e9c
+  task:
+    baseUrl: "http://localhost:81"
+    createTaskUrl: "${integration.task.baseUrl}/task/v1/create"
+    apiKey: 02b689a8-9e62-4e55-8b24-eebdb27c4eec

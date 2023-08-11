@@ -20,7 +20,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
-class ActivityActivityLogControllerTest {
+class ActivityLogControllerTest {
 
     @Mock
     private CreateActivityLogService createActivityLogService;

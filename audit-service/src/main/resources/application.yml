@@ -54,7 +54,6 @@ config:
       activity: "7 days"
       comm: "7 days"
   scheduler:
-    audit:
       doHousekeepActivity: "0 0 4 * * ?" #everyday 4:00:00 a.m.
       #doHousekeepActivity: "*/5 * * * * ?" #everyday 5 seconds
       doHousekeepComm: "0 0 4 * * ?" #everyday 4:00:00 a.m.

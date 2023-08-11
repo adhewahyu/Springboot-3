@@ -15,7 +15,7 @@ public class HousekeepActivityLogJob {
 
     private final HousekeepActivityLogService housekeepActivityLogService;
 
-    @Scheduled(cron = "${config.scheduler.audit.doHousekeepActivity}")
+    @Scheduled(cron = "${config.scheduler.doHousekeepActivity}")
     @SchedulerLock(name = "doHousekeepActivity", lockAtLeastFor = "15S", lockAtMostFor = "20S")
     public void execute(){
         log.info(">> housekeepActivityLogService [start]");

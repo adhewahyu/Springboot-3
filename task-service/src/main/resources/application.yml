@@ -74,6 +74,11 @@ config:
       micro:
         path: "/api/task-service"
       key: 02b689a8-9e62-4e55-8b24-eebdb27c4eec
+  housekeep:
+    interval:
+      task: "7 days"
+  scheduler:
+    doHousekeepTask: "0 0 4 * * ?" #everyday 4:00:00 a.m.
 integration:
   audit:
     baseUrl: "http://localhost:82"

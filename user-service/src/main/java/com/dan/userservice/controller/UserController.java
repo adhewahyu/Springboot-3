@@ -5,10 +5,7 @@ import com.dan.shared.sharedlibrary.model.response.RestResponse;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
 import com.dan.userservice.model.request.CreateUserRequest;
 import com.dan.userservice.model.request.UpdateUserRequest;
-import com.dan.userservice.service.CreateUserByTaskService;
-import com.dan.userservice.service.CreateUserService;
-import com.dan.userservice.service.DeleteUserService;
-import com.dan.userservice.service.UpdateUserService;
+import com.dan.userservice.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,6 +26,7 @@ public class UserController {
     private final CreateUserByTaskService createUserByTaskService;
     private final UpdateUserService updateUserService;
     private final DeleteUserService deleteUserService;
+    private final DeleteUserByTaskService deleteUserByTaskService;
 
     @Operation(summary = "Create New User to Task List", description = "API to create new user and put to task list for approval")
     @ApiResponses(value = {
@@ -72,6 +70,17 @@ public class UserController {
     @PostMapping(value = "/v1/delete")
     public Mono<ResponseEntity<RestResponse>> deleteUser(@RequestBody FindByIdRequest request){
         return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, deleteUserService.execute(request).getResult()), HttpStatus.OK));
+    }
+
+    @Operation(summary = "Delete Existing User from Task List", description = "API to delete existing user from task list")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "500", description = "Oops")
+    })
+    @PostMapping(value = "/v1/delete-by-task")
+    public Mono<ResponseEntity<RestResponse>> deleteUserByTask(@RequestBody FindByIdRequest request){
+        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, deleteUserByTaskService.execute(request).getResult()), HttpStatus.OK));
     }
 
 }

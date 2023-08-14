@@ -43,7 +43,7 @@ public class CreateLogAdaptor {
                 .subscribe(data -> log.info("response = {}", JSON.toJSONString(data)));
     }
 
-    public void getHttpHeaders(HttpHeaders httpHeaders) {
+    private void getHttpHeaders(HttpHeaders httpHeaders) {
         httpHeaders.add(CommonConstants.REQ_HEADER_APIKEY, internalApiKey);
         httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);

@@ -84,3 +84,9 @@ integration:
     baseUrl: "http://localhost:82"
     createLogUrl: "${integration.audit.baseUrl}/log/activity/v1/create"
     apiKey: 4da85148-6e25-4a2e-9744-382adf1c3e9c
+  user:
+    baseUrl: "http://localhost:83"
+    createUserByTaskUrl: "${integration.user.baseUrl}/user/v1/create-by-task"
+    updateUserByTaskUrl: "${integration.user.baseUrl}/user/v1/update-by-task"
+    deleteUserByTaskUrl: "${integration.user.baseUrl}/user/v1/delete-by-task"
+    apiKey: 6804b89c-aabe-4be0-8335-651679118d42

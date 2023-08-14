@@ -14,4 +14,6 @@ public class Constants {
     public static final String ERR_MSG_STATUS_REQUIRED = "Status is required";
     public static final String ERR_MSG_STATUS_INVALID = "Invalid status type";
 
+    public static final String USER_MODULE = "USER";
+
 }

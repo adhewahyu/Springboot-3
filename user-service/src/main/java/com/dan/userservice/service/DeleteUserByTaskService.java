@@ -20,10 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
-@Transactional(propagation = Propagation.REQUIRES_NEW)
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 public class DeleteUserByTaskService implements BaseService<FindByIdRequest, ValidationResponse> {
 
     private final ValidateUserService validateUserService;

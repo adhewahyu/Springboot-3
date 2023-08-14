@@ -8,7 +8,7 @@ import com.dan.userservice.model.entity.UserDetail;
 import com.dan.userservice.model.request.CreateLogRequest;
 import com.dan.userservice.model.request.CreateUserRequest;
 import com.dan.userservice.model.request.ValidateUserRequest;
-import com.dan.userservice.model.transformer.CreateUserTransformer;
+import com.dan.userservice.model.transformer.UserRequestTransformer;
 import com.dan.userservice.repository.UserDetailRepository;
 import com.dan.userservice.util.Constants;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class CreateUserByTaskService implements BaseService<CreateUserRequest, V
     private final ValidateUserService validateUserService;
     private final UserDetailRepository userDetailRepository;
     private final CreateLogAdaptor createLogAdaptor;
-    private final CreateUserTransformer createUserTransformer;
+    private final UserRequestTransformer userRequestTransformer;
 
     @Override
     public ValidationResponse execute(CreateUserRequest input) {
@@ -36,7 +36,7 @@ public class CreateUserByTaskService implements BaseService<CreateUserRequest, V
         BeanUtils.copyProperties(input, validateUserRequest);
         validateUserRequest.setTaskAction(TaskAction.INSERT.getValue());
         if(validateUserService.execute(validateUserRequest).getResult()){
-            UserDetail newUser = createUserTransformer.transform(input);
+            UserDetail newUser = userRequestTransformer.transform(input);
             userDetailRepository.save(newUser);
             createLogAdaptor.execute(CreateLogRequest.builder()
                     .activity(TaskAction.INSERT.getValue())

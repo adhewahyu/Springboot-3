@@ -25,10 +25,12 @@ public class UserController {
     private final CreateUserService createUserService;
     private final CreateUserByTaskService createUserByTaskService;
     private final UpdateUserService updateUserService;
+    private final UpdateUserByTaskService updateUserByTaskService;
     private final DeleteUserService deleteUserService;
     private final DeleteUserByTaskService deleteUserByTaskService;
 
-    @Operation(summary = "Create New User to Task List", description = "API to create new user and put to task list for approval")
+    @Operation(summary = "Create New User to Task List",
+            description = "API to create new user and put to task list for approval")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
@@ -36,10 +38,13 @@ public class UserController {
     })
     @PostMapping(value = "/v1/create")
     public Mono<ResponseEntity<RestResponse>> createNewUser(@RequestBody CreateUserRequest request){
-        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, createUserService.execute(request).getResult()), HttpStatus.OK));
+        return Mono.just(new ResponseEntity<>(
+                new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED,
+                        createUserService.execute(request).getResult()), HttpStatus.OK));
     }
 
-    @Operation(summary = "Create New User from Task List", description = "API to create new user from task list")
+    @Operation(summary = "Create New User from Task List",
+            description = "API to create new user from task list")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
@@ -47,10 +52,13 @@ public class UserController {
     })
     @PostMapping(value = "/v1/create-by-task")
     public Mono<ResponseEntity<RestResponse>> createNewUserByTask(@RequestBody CreateUserRequest request){
-        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, createUserByTaskService.execute(request).getResult()), HttpStatus.OK));
+        return Mono.just(new ResponseEntity<>(
+                new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED,
+                        createUserByTaskService.execute(request).getResult()), HttpStatus.OK));
     }
 
-    @Operation(summary = "Update Existing User to Task List", description = "API to update existing user and put to task list for approval")
+    @Operation(summary = "Update Existing User to Task List",
+            description = "API to update existing user and put to task list for approval")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
@@ -58,10 +66,26 @@ public class UserController {
     })
     @PostMapping(value = "/v1/update")
     public Mono<ResponseEntity<RestResponse>> updateExistingUser(@RequestBody UpdateUserRequest request){
-        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, updateUserService.execute(request).getResult()), HttpStatus.OK));
+        return Mono.just(new ResponseEntity<>(
+                new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED,
+                        updateUserService.execute(request).getResult()), HttpStatus.OK));
     }
 
-    @Operation(summary = "Delete User to Task List", description = "API to delete user and put to task list for approval")
+    @Operation(summary = "Update Existing User from Task List",
+            description = "API to update existing user from task list")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "500", description = "Oops")
+    })
+    @PostMapping(value = "/v1/update-by-task")
+    public Mono<ResponseEntity<RestResponse>> updateExistingUserByTask(@RequestBody UpdateUserRequest request){
+        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED,
+                updateUserByTaskService.execute(request).getResult()), HttpStatus.OK));
+    }
+
+    @Operation(summary = "Delete User to Task List",
+            description = "API to delete user and put to task list for approval")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
@@ -69,10 +93,13 @@ public class UserController {
     })
     @PostMapping(value = "/v1/delete")
     public Mono<ResponseEntity<RestResponse>> deleteUser(@RequestBody FindByIdRequest request){
-        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, deleteUserService.execute(request).getResult()), HttpStatus.OK));
+        return Mono.just(new ResponseEntity<>(
+                new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED,
+                        deleteUserService.execute(request).getResult()), HttpStatus.OK));
     }
 
-    @Operation(summary = "Delete Existing User from Task List", description = "API to delete existing user from task list")
+    @Operation(summary = "Delete Existing User from Task List",
+            description = "API to delete existing user from task list")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
@@ -80,7 +107,9 @@ public class UserController {
     })
     @PostMapping(value = "/v1/delete-by-task")
     public Mono<ResponseEntity<RestResponse>> deleteUserByTask(@RequestBody FindByIdRequest request){
-        return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, deleteUserByTaskService.execute(request).getResult()), HttpStatus.OK));
+        return Mono.just(new ResponseEntity<>(
+                new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED,
+                        deleteUserByTaskService.execute(request).getResult()), HttpStatus.OK));
     }
 
 }

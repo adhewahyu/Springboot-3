@@ -7,8 +7,11 @@ import com.dan.userservice.enums.UserStatus;
 import com.dan.userservice.model.entity.User;
 import com.dan.userservice.model.entity.UserDetail;
 import com.dan.userservice.model.request.CreateUserRequest;
+import com.dan.userservice.model.request.UpdateUserRequest;
+import com.dan.userservice.model.request.ValidateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Base64Util;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +19,7 @@ import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
-public class CreateUserTransformer implements MessageTransformer<CreateUserRequest, UserDetail> {
+public class UserRequestTransformer implements MessageTransformer<CreateUserRequest, UserDetail> {
 
     @Value("${config.default.password}")
     private String defaultPassword;
@@ -25,9 +28,11 @@ public class CreateUserTransformer implements MessageTransformer<CreateUserReque
 
     @Override
     public UserDetail transform(CreateUserRequest input) {
+        ValidateUserRequest validateUserRequest = new ValidateUserRequest();
+        BeanUtils.copyProperties(validateUserRequest, input);
         User user = new User();
         user.setId(commonUtility.getRandomUUID());
-        user.setUsername(input.getUsername());
+        user.setUsername(validateUserRequest.getUsername());
         user.setPassword(Base64Util.encode(defaultPassword));
         user.setStatus(UserStatus.NEW.getValue());
         user.setSuperUser(false);
@@ -36,6 +41,16 @@ public class CreateUserTransformer implements MessageTransformer<CreateUserReque
         UserDetail userDetail = new UserDetail();
         userDetail.setUser(user);
         userDetail.setId(commonUtility.getRandomUUID());
+        return getUserDetail(userDetail, validateUserRequest);
+    }
+
+    public UserDetail transform(UserDetail userDetail, UpdateUserRequest input){
+        ValidateUserRequest validateUserRequest = new ValidateUserRequest();
+        BeanUtils.copyProperties(validateUserRequest, input);
+        return getUserDetail(userDetail, validateUserRequest);
+    }
+
+    private UserDetail getUserDetail(UserDetail userDetail, ValidateUserRequest input) {
         userDetail.setFirstName(input.getFirstName());
         userDetail.setMiddleName(input.getMiddleName());
         userDetail.setLastName(input.getLastName());
@@ -48,5 +63,4 @@ public class CreateUserTransformer implements MessageTransformer<CreateUserReque
         userDetail.setEmergencyContactPhoneNo(input.getEmergencyContactPhoneNo());
         return userDetail;
     }
-
 }

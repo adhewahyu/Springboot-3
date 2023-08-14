@@ -21,5 +21,5 @@ public class Constants {
     public static final String ERR_MSG_EMERGENCY_CONTACT_PHONENO_REQUIRED = "Emergency Contact Phone Number is required";
     public static final String ERR_MSG_EMERGENCY_CONTACT_PHONENO_INVALID = "Invalid Emergency Contact Phone Number";
 
-
+    public static final String ERR_MSG_USER_NOT_FOUND = "User is not found";
 }

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ValidateUserRequest extends BaseRequest {
 
+    private String id;
     private String username;
     private String firstName;
     private String middleName;
@@ -24,5 +25,7 @@ public class ValidateUserRequest extends BaseRequest {
     private String emergencyContactName;
     private String emergencyContactPhoneNo;
     private String password;
+
+    private String taskAction;
 
 }

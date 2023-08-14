@@ -1,7 +1,9 @@
 package com.dan.auditservice.controller;
 
 import com.dan.auditservice.model.request.CreateActivityLogRequest;
+import com.dan.auditservice.model.request.CreateCommLogRequest;
 import com.dan.auditservice.service.CreateActivityLogService;
+import com.dan.auditservice.service.CreateCommLogService;
 import com.dan.shared.sharedlibrary.model.response.ValidationResponse;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
 import lombok.extern.slf4j.Slf4j;
@@ -20,13 +22,13 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
-class ActivityLogControllerTest {
+class CommLogControllerTest {
 
     @Mock
-    private CreateActivityLogService createActivityLogService;
+    private CreateCommLogService createCommLogService;
 
     @InjectMocks
-    private ActivityLogController activityLogController;
+    private CommLogController commLogController;
 
     @BeforeEach
     void init(){
@@ -35,15 +37,17 @@ class ActivityLogControllerTest {
 
     @Test
     void doTest_createLog_success(){
-        ReflectionTestUtils.setField(activityLogController, "createActivityLogService", createActivityLogService);
-        CreateActivityLogRequest createActivityLogRequest = CreateActivityLogRequest.builder()
-                .module("test")
-                .activity("test")
-                .createdBy("tester")
+        ReflectionTestUtils.setField(commLogController, "createCommLogService", createCommLogService);
+        CreateCommLogRequest createCommLogRequest = CreateCommLogRequest.builder()
+                .serviceName("test")
+                .urlEndpoint("test")
+                .request("test")
+                .response("test")
+                .httpResponseCode("test")
                 .createdDate(0L)
                 .build();
-        Mockito.when(createActivityLogService.execute(Mockito.any())).thenReturn(ValidationResponse.builder().result(true).build());
-        activityLogController.createLog(createActivityLogRequest).subscribe(response ->{
+        Mockito.when(createCommLogService.execute(Mockito.any())).thenReturn(ValidationResponse.builder().result(true).build());
+        commLogController.createLog(createCommLogRequest).subscribe(response ->{
            Assertions.assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
            Assertions.assertEquals(true, response.getBody().getResult());
            Assertions.assertEquals(CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, response.getBody().getMessage());

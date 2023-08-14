@@ -96,7 +96,7 @@ class CreateActivityLogServiceTest {
 
     @Test
     void doTest_success(){
-        ReflectionTestUtils.setField(createActivityLogService, "logRepository", activityLogRepository);
+        ReflectionTestUtils.setField(createActivityLogService, "activityLogRepository", activityLogRepository);
         ReflectionTestUtils.setField(createActivityLogService, "commonUtility", commonUtility);
         Mockito.when(commonUtility.getRandomUUID()).thenReturn("1234");
         Mockito.when(activityLogRepository.save(Mockito.any())).thenReturn(new ActivityLog());

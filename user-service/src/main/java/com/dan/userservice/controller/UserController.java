@@ -25,7 +25,7 @@ public class UserController {
 
     private final CreateUserService createUserService;
 
-    @Operation(summary = "Create New User", description = "API to create new user")
+    @Operation(summary = "Create New User to Task List", description = "API to create new user and put to task list for approval")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),

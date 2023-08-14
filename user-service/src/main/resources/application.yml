@@ -79,6 +79,9 @@ config:
       user: "7 days"
   scheduler:
     doInactiveUser: "0 0 4 * * ?" #everyday 4:00:00 a.m.
+  regex:
+    alphabetOnly: "^[a-zA-Z]+$"
+    numberOnly: "^[0-9]+$"
 integration:
   audit:
     baseUrl: "http://localhost:82"

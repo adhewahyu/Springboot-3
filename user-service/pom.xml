@@ -19,6 +19,7 @@
         <shared-library.version>0.0.1-SNAPSHOT</shared-library.version>
         <mockito.version>5.3.1</mockito.version>
         <reactor-test.version>3.5.5</reactor-test.version>
+        <apache-common-validator.version>1.7</apache-common-validator.version>
     </properties>
     <dependencies>
         <dependency>
@@ -56,6 +57,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>${apache-common-validator.version}</version>
         </dependency>
 
         <dependency>

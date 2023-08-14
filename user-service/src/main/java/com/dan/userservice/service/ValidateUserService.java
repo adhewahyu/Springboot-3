@@ -33,9 +33,10 @@ public class ValidateUserService implements BaseService<ValidateUserRequest, Val
     @Override
     public ValidationResponse execute(ValidateUserRequest input) {
         if(input.getTaskAction().equals(TaskAction.INSERT.getValue())){
-            doValidateCreateUser(input);
+            doValidateUser(input, true);
         }else if(input.getTaskAction().equals(TaskAction.UPDATE.getValue())){
-
+            doValidateUserExist(input);
+            doValidateUser(input, false);
         }else if(input.getTaskAction().equals(TaskAction.DELETE.getValue())){
             doValidateUserExist(input);
         }else{
@@ -45,8 +46,10 @@ public class ValidateUserService implements BaseService<ValidateUserRequest, Val
         return ValidationResponse.builder().result(true).build();
     }
 
-    private void doValidateCreateUser(ValidateUserRequest input) {
-        validatorUtility.doValidateInput(regexAlphabetOnly, input.getUsername().trim(), Constants.ERR_MSG_USERNAME_REQUIRED, Constants.ERR_MSG_UNSERNAME_INVALID);
+    private void doValidateUser(ValidateUserRequest input, boolean isNew) {
+        if(isNew){
+            validatorUtility.doValidateInput(regexAlphabetOnly, input.getUsername().trim(), Constants.ERR_MSG_USERNAME_REQUIRED, Constants.ERR_MSG_UNSERNAME_INVALID);
+        }
         validatorUtility.doValidateInput(regexAlphabetOnly, input.getFirstName().trim(), Constants.ERR_MSG_FIRSTNAME_REQUIRED, Constants.ERR_MSG_FIRSTNAME_INVALID);
         validatorUtility.doValidateInput(regexAlphabetOnly, input.getLastName().trim(), Constants.ERR_MSG_LASTNAME_REQUIRED, Constants.ERR_MSG_LASTNAME_INVALID);
         validatorUtility.doValidateInput(regexNumberOnly, input.getPhoneNo(), Constants.ERR_MSG_PHONENO_REQUIRED, Constants.ERR_MSG_PHONENO_INVALID);

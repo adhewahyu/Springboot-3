@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ValidateUserRequest extends BaseRequest {
+public class UpdateUserRequest extends BaseRequest {
 
     private String id;
-    private String username;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -24,7 +23,5 @@ public class ValidateUserRequest extends BaseRequest {
     private String grade;
     private String emergencyContactName;
     private String emergencyContactPhoneNo;
-
-    private String taskAction;
 
 }

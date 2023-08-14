@@ -5,7 +5,7 @@ public class Constants {
     public static final String USER_MODULE = "USER";
 
     public static final String ERR_MSG_USERNAME_REQUIRED = "Username is required";
-    public static final String ERR_MSG_UNSERNAME_INVALID = "Invalid Username";
+    public static final String ERR_MSG_USERNAME_INVALID = "Invalid Username";
     public static final String ERR_MSG_FIRSTNAME_REQUIRED = "First Name is required";
     public static final String ERR_MSG_FIRSTNAME_INVALID = "Invalid First Name";
     public static final String ERR_MSG_LASTNAME_REQUIRED = "Last Name is required";

@@ -48,21 +48,21 @@ public class ValidateUserService implements BaseService<ValidateUserRequest, Val
 
     private void doValidateUser(ValidateUserRequest input, boolean isNew) {
         if(isNew){
-            validatorUtility.doValidateInput(regexAlphabetOnly, input.getUsername().trim(), Constants.ERR_MSG_USERNAME_REQUIRED, Constants.ERR_MSG_UNSERNAME_INVALID);
+            validatorUtility.doValidateInput(regexAlphabetOnly, input.getUsername(), Constants.ERR_MSG_USERNAME_REQUIRED, Constants.ERR_MSG_USERNAME_INVALID);
         }
-        validatorUtility.doValidateInput(regexAlphabetOnly, input.getFirstName().trim(), Constants.ERR_MSG_FIRSTNAME_REQUIRED, Constants.ERR_MSG_FIRSTNAME_INVALID);
-        validatorUtility.doValidateInput(regexAlphabetOnly, input.getLastName().trim(), Constants.ERR_MSG_LASTNAME_REQUIRED, Constants.ERR_MSG_LASTNAME_INVALID);
+        validatorUtility.doValidateInput(regexAlphabetOnly, input.getFirstName(), Constants.ERR_MSG_FIRSTNAME_REQUIRED, Constants.ERR_MSG_FIRSTNAME_INVALID);
+        validatorUtility.doValidateInput(regexAlphabetOnly, input.getLastName(), Constants.ERR_MSG_LASTNAME_REQUIRED, Constants.ERR_MSG_LASTNAME_INVALID);
         validatorUtility.doValidateInput(regexNumberOnly, input.getPhoneNo(), Constants.ERR_MSG_PHONENO_REQUIRED, Constants.ERR_MSG_PHONENO_INVALID);
-        validatorUtility.doValidateEmail(input.getOfficeEmail().trim(), Constants.ERR_MSG_OFFICEMAIL_REQUIRED, Constants.ERR_MSG_OFFICEMAIL_INVALID);
-        validatorUtility.doValidateEmail(input.getPersonalEmail().trim(), Constants.ERR_MSG_PERSONALMAIL_REQUIRED, Constants.ERR_MSG_PERSONALMAIL_INVALID);
-        validatorUtility.doValidateInput(regexAlphabetOnly, input.getEmergencyContactName().trim(), Constants.ERR_MSG_EMERGENCY_CONTACT_NAME_REQUIRED, Constants.ERR_MSG_EMERGENCY_CONTACT_NAME_INVALID);
-        validatorUtility.doValidateInput(regexNumberOnly, input.getEmergencyContactPhoneNo().trim(), Constants.ERR_MSG_EMERGENCY_CONTACT_PHONENO_REQUIRED, Constants.ERR_MSG_EMERGENCY_CONTACT_PHONENO_INVALID);
+        validatorUtility.doValidateEmail(input.getOfficeEmail(), Constants.ERR_MSG_OFFICEMAIL_REQUIRED, Constants.ERR_MSG_OFFICEMAIL_INVALID);
+        validatorUtility.doValidateEmail(input.getPersonalEmail(), Constants.ERR_MSG_PERSONALMAIL_REQUIRED, Constants.ERR_MSG_PERSONALMAIL_INVALID);
+        validatorUtility.doValidateInput(regexAlphabetOnly, input.getEmergencyContactName(), Constants.ERR_MSG_EMERGENCY_CONTACT_NAME_REQUIRED, Constants.ERR_MSG_EMERGENCY_CONTACT_NAME_INVALID);
+        validatorUtility.doValidateInput(regexNumberOnly, input.getEmergencyContactPhoneNo(), Constants.ERR_MSG_EMERGENCY_CONTACT_PHONENO_REQUIRED, Constants.ERR_MSG_EMERGENCY_CONTACT_PHONENO_INVALID);
     }
 
     private void doValidateUserExist(ValidateUserRequest input){
         if(userRepository.findById(input.getId()).isEmpty()){
             log.error(Constants.ERR_MSG_USER_NOT_FOUND);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, CommonConstants.ERR_MSG_DATA_NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.ERR_MSG_USER_NOT_FOUND);
         }
     }
 

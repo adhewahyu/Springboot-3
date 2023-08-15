@@ -8,7 +8,6 @@ import com.dan.userservice.adaptor.task.CreateTaskAdaptor;
 import com.dan.userservice.enums.TaskAction;
 import com.dan.userservice.enums.TaskStatus;
 import com.dan.userservice.model.request.CreateTaskRequest;
-import com.dan.userservice.model.request.CreateUserRequest;
 import com.dan.userservice.model.request.UpdateUserRequest;
 import com.dan.userservice.model.request.ValidateUserRequest;
 import com.dan.userservice.util.Constants;

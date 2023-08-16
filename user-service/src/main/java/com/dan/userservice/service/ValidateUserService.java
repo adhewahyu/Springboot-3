@@ -39,6 +39,8 @@ public class ValidateUserService implements BaseService<ValidateUserRequest, Val
             doValidateUser(input, false);
         }else if(input.getTaskAction().equals(TaskAction.DELETE.getValue())){
             doValidateUserExist(input);
+        }else if(input.getTaskAction().equals(TaskAction.VIEW.getValue())){
+            doValidateUserExist(input);
         }else{
             log.error(CommonConstants.ERR_MSG_EXPECTATION_FAILED);
             throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED, CommonConstants.ERR_MSG_EXPECTATION_FAILED);

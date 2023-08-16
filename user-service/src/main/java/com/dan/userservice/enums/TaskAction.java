@@ -6,7 +6,8 @@ import java.util.Map;
 public enum TaskAction {
     INSERT("I", "INSERT"),
     UPDATE("U", "UPDATE"),
-    DELETE("D", "DELETE");
+    DELETE("D", "DELETE"),
+    VIEW("V", "VIEW");
 
 
     private final String value;

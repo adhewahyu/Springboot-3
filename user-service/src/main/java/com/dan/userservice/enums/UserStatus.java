@@ -20,13 +20,13 @@ public enum UserStatus {
     }
 
     static {
-        for (UserStatus taskStatus : UserStatus.values()) {
-            map.put(taskStatus.value, taskStatus);
+        for (UserStatus userStatus : UserStatus.values()) {
+            map.put(userStatus.value, userStatus);
         }
     }
 
-    public static UserStatus valueOf(int taskStatus) {
-        return (UserStatus) map.get(taskStatus);
+    public static UserStatus valueOf(int userStatus) {
+        return (UserStatus) map.get(userStatus);
     }
 
     public Integer getValue() {

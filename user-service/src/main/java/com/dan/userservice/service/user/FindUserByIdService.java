@@ -1,4 +1,4 @@
-package com.dan.userservice.service;
+package com.dan.userservice.service.user;
 
 import com.dan.shared.sharedlibrary.service.BaseService;
 import com.dan.shared.sharedlibrary.util.CommonConstants;

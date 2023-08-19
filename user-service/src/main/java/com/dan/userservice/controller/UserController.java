@@ -7,7 +7,7 @@ import com.dan.shared.sharedlibrary.util.CommonConstants;
 import com.dan.userservice.model.request.CreateUserRequest;
 import com.dan.userservice.model.request.FindUserByIdRequest;
 import com.dan.userservice.model.request.UpdateUserRequest;
-import com.dan.userservice.service.*;
+import com.dan.userservice.service.user.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

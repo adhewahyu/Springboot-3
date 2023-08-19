@@ -5,6 +5,8 @@ import com.dan.shared.sharedlibrary.model.response.ValidationResponse;
 import com.dan.userservice.adaptor.task.CreateTaskAdaptor;
 import com.dan.userservice.model.request.CreateTaskRequest;
 import com.dan.userservice.model.request.ValidateUserRequest;
+import com.dan.userservice.service.user.DeleteUserService;
+import com.dan.userservice.service.user.ValidateUserService;
 import com.dan.userservice.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;

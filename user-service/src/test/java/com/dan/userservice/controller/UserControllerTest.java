@@ -5,7 +5,7 @@ import com.dan.shared.sharedlibrary.model.response.ValidationResponse;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
 import com.dan.userservice.model.request.CreateUserRequest;
 import com.dan.userservice.model.request.UpdateUserRequest;
-import com.dan.userservice.service.*;
+import com.dan.userservice.service.user.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -5,6 +5,7 @@ import com.dan.userservice.enums.TaskAction;
 import com.dan.userservice.model.entity.User;
 import com.dan.userservice.model.request.ValidateUserRequest;
 import com.dan.userservice.repository.UserRepository;
+import com.dan.userservice.service.user.ValidateUserService;
 import com.dan.userservice.util.Constants;
 import com.dan.userservice.util.ValidatorUtility;
 import lombok.extern.slf4j.Slf4j;

@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class ValidatorUtility {
 
-    public Matcher getMatcherResultFromPattern(String patternRegex, String input){
+    private Matcher getMatcherResultFromPattern(String patternRegex, String input){
         Pattern pattern = Pattern.compile(patternRegex);
         return pattern.matcher(input);
     }

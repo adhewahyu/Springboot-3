@@ -3,6 +3,7 @@ package com.dan.userservice.util;
 public class Constants {
 
     public static final String USER_MODULE = "USER";
+    public static final String ROLE_MODULE = "ROLE";
 
     public static final String ERR_MSG_USERNAME_REQUIRED = "Username is required";
     public static final String ERR_MSG_USERNAME_INVALID = "Invalid Username";
@@ -21,5 +22,10 @@ public class Constants {
     public static final String ERR_MSG_EMERGENCY_CONTACT_PHONENO_REQUIRED = "Emergency Contact Phone Number is required";
     public static final String ERR_MSG_EMERGENCY_CONTACT_PHONENO_INVALID = "Invalid Emergency Contact Phone Number";
 
+    public static final String ERR_MSG_ROLENAME_REQUIRED = "Role Name is required";
+    public static final String ERR_MSG_ROLENAME_INVALID = "Invalid Role Name";
+    public static final String ERR_MSG_ROLENAME_DUPLICATE = "Duplicate Role Name detected";
+
     public static final String ERR_MSG_USER_NOT_FOUND = "User is not found";
+    public static final String ERR_MSG_ROLE_NOT_FOUND = "Role is not found";
 }

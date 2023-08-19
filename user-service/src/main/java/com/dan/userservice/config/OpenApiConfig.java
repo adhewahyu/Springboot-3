@@ -18,11 +18,18 @@ public class OpenApiConfig {
 
     private static final String BASE_PACKAGE = "com.dan.userservice.controller";
 
-    private static final String[] TASK_APIS = {
+    private static final String[] USER_APIS = {
             "/user/v1/create",
             "/user/v1/update",
             "/user/v1/delete",
             "/user/v1/detail"
+    };
+
+    private static final String[] ROLE_APIS = {
+            "/role/v1/create",
+            "/role/v1/update",
+            "/role/v1/delete",
+            "/role/v1/detail"
     };
 
     @Bean
@@ -53,7 +60,17 @@ public class OpenApiConfig {
                 .group("User Recipe")
                 .displayName("User Recipe")
                 .packagesToScan(BASE_PACKAGE)
-                .pathsToMatch(TASK_APIS)
+                .pathsToMatch(USER_APIS)
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi roleAPIs(){
+        return GroupedOpenApi.builder()
+                .group("Role Recipe")
+                .displayName("Role Recipe")
+                .packagesToScan(BASE_PACKAGE)
+                .pathsToMatch(ROLE_APIS)
                 .build();
     }
 

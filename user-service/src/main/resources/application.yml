@@ -82,6 +82,7 @@ config:
   regex:
     alphabetOnly: "^[a-zA-Z]+$"
     numberOnly: "^[0-9]+$"
+    alphanumericWithBasicSymbol: "^[a-zA-Z0-9., ]+$"
   default:
     password: "P@55w0rd1!"
 integration:

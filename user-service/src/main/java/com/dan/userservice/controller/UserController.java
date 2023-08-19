@@ -84,7 +84,7 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "500", description = "Oops")
     })
-    @PostMapping(value = "/v1/update-by-task")
+    @PutMapping(value = "/v1/update-by-task")
     public Mono<ResponseEntity<RestResponse>> updateExistingUserByTask(@RequestBody UpdateUserRequest request){
         return Mono.just(new ResponseEntity<>(new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED,
                 MessageCode.OK.getValue(),
@@ -113,7 +113,7 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "500", description = "Oops")
     })
-    @PostMapping(value = "/v1/delete-by-task")
+    @DeleteMapping(value = "/v1/delete-by-task")
     public Mono<ResponseEntity<RestResponse>> deleteUserByTask(@RequestBody FindByIdRequest request){
         return Mono.just(new ResponseEntity<>(
                 new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED,

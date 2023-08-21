@@ -29,7 +29,7 @@ public class UserRequestTransformer implements MessageTransformer<CreateUserRequ
     @Override
     public UserDetail transform(CreateUserRequest input) {
         ValidateUserRequest validateUserRequest = new ValidateUserRequest();
-        BeanUtils.copyProperties(validateUserRequest, input);
+        BeanUtils.copyProperties(input, validateUserRequest);
         User user = new User();
         user.setId(commonUtility.getRandomUUID());
         user.setUsername(validateUserRequest.getUsername());
@@ -46,7 +46,7 @@ public class UserRequestTransformer implements MessageTransformer<CreateUserRequ
 
     public UserDetail transform(UserDetail userDetail, UpdateUserRequest input){
         ValidateUserRequest validateUserRequest = new ValidateUserRequest();
-        BeanUtils.copyProperties(validateUserRequest, input);
+        BeanUtils.copyProperties(input, validateUserRequest);
         return getUserDetail(userDetail, validateUserRequest);
     }
 

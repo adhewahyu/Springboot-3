@@ -5,6 +5,7 @@ import com.dan.shared.sharedlibrary.model.request.FindByIdRequest;
 import com.dan.shared.sharedlibrary.model.response.RestResponse;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
 import com.dan.userservice.model.request.CreateRoleRequest;
+import com.dan.userservice.model.request.FindUserByIdRequest;
 import com.dan.userservice.model.request.UpdateRoleRequest;
 import com.dan.userservice.service.role.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,6 +30,7 @@ public class RoleController {
     private final UpdateRoleByTaskService updateRoleByTaskService;
     private final DeleteRoleService deleteRoleService;
     private final DeleteRoleByTaskService deleteRoleByTaskService;
+    private final FindRoleByIdService findRoleByIdService;
 
     @Operation(summary = "Create New Role to Task List",
             description = "API to create new role and put to task list for approval")
@@ -118,6 +120,23 @@ public class RoleController {
                 new RestResponse(null, CommonConstants.SUCCESS_MSG_DATA_SUBMITTED,
                         MessageCode.OK.getValue(),
                         deleteRoleByTaskService.execute(request).getResult()), HttpStatus.OK));
+    }
+
+    @Operation(summary = "Find Role with detailed info",
+            description = "API to find role detailed information")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "500", description = "Oops")
+    })
+    @GetMapping(value = "/v1/detail/{id}")
+    public Mono<ResponseEntity<RestResponse>> getRoleDetailedInfo(@PathVariable("id") String id){
+        return Mono.just(new ResponseEntity<>(
+                new RestResponse(findRoleByIdService.execute(FindUserByIdRequest.builder()
+                        .id(id)
+                        .slimResponse(false)
+                        .build()),
+                        CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, MessageCode.OK.getValue(), true), HttpStatus.OK));
     }
 
 }

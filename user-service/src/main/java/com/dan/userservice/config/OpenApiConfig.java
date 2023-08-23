@@ -22,6 +22,7 @@ public class OpenApiConfig {
             "/user/v1/create",
             "/user/v1/update",
             "/user/v1/delete",
+            "/user/v1/info",
             "/user/v1/detail"
     };
 

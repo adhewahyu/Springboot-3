@@ -5,8 +5,7 @@ import com.dan.shared.sharedlibrary.util.CommonConstants;
 import com.dan.shared.sharedlibrary.util.CommonUtility;
 import com.dan.userservice.enums.RoleStatus;
 import com.dan.userservice.model.entity.Role;
-import com.dan.userservice.model.request.CreateRoleRequest;
-import com.dan.userservice.model.request.ValidateRoleRequest;
+import com.dan.userservice.model.request.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -30,6 +29,16 @@ public class RoleRequestTransformer implements MessageTransformer<CreateRoleRequ
         role.setStatus(RoleStatus.NEW.getValue());
         role.setCreatedBy(CommonConstants.SYSTEM);
         role.setCreatedDate(new Date());
+        return role;
+    }
+
+    public Role transform(Role role, UpdateRoleRequest input){
+        ValidateRoleRequest validateRoleRequest = new ValidateRoleRequest();
+        BeanUtils.copyProperties(input, validateRoleRequest);
+        role.setName(input.getName());
+        role.setDescription(input.getDescription());
+        role.setUpdatedBy(CommonConstants.SYSTEM);
+        role.setUpdatedDate(new Date());
         return role;
     }
 }

@@ -4,26 +4,19 @@ import com.dan.shared.sharedlibrary.model.response.ValidationResponse;
 import com.dan.shared.sharedlibrary.service.BaseService;
 import com.dan.userservice.adaptor.audit.CreateLogAdaptor;
 import com.dan.userservice.enums.TaskAction;
-import com.dan.userservice.model.entity.Permission;
 import com.dan.userservice.model.request.*;
 import com.dan.userservice.model.transformer.RoleRequestTransformer;
-import com.dan.userservice.repository.PermissionRepository;
 import com.dan.userservice.repository.RoleRepository;
-import com.dan.userservice.service.permission.ValidatePermissionService;
 import com.dan.userservice.util.Constants;
+import com.dan.userservice.util.PermissionUtility;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.HashSet;
-import java.util.Set;
-
 
 @Service
 @RequiredArgsConstructor
@@ -35,8 +28,7 @@ public class UpdateRoleByTaskService implements BaseService<UpdateRoleRequest, V
     private final RoleRepository roleRepository;
     private final CreateLogAdaptor createLogAdaptor;
     private final RoleRequestTransformer roleRequestTransformer;
-    private final ValidatePermissionService validatePermissionService;
-    private final PermissionRepository permissionRepository;
+    private final PermissionUtility permissionUtility;
 
     @Override
     public ValidationResponse execute(UpdateRoleRequest input) {
@@ -47,13 +39,7 @@ public class UpdateRoleByTaskService implements BaseService<UpdateRoleRequest, V
             roleRepository.findById(input.getId())
                     .ifPresentOrElse(role -> {
                                 role = roleRequestTransformer.transform(role, input);
-                                if(ObjectUtils.isNotEmpty(input.getPermissionIds()) && !validatePermissionIds(input)){
-                                    log.error(Constants.ERR_MSG_PERMISSIONS_ID_INVALID);
-                                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, Constants.ERR_MSG_PERMISSIONS_ID_INVALID);
-                                }else{
-                                    Set<Permission> permissionSet = new HashSet<>(permissionRepository.findAllById(input.getPermissionIds()));
-                                    role.setPermissions(permissionSet);
-                                }
+                                permissionUtility.doApplyPermissionSet(role, input.getPermissionIds());
                                 roleRepository.save(role);
                                 createLogAdaptor.execute(CreateLogRequest.builder()
                                         .activity(TaskAction.UPDATE.getValue())
@@ -70,7 +56,4 @@ public class UpdateRoleByTaskService implements BaseService<UpdateRoleRequest, V
         return ValidationResponse.builder().result(true).build();
     }
 
-    private boolean validatePermissionIds(UpdateRoleRequest input){
-        return validatePermissionService.execute(ValidatePermissionRequest.builder().permissionIds(input.getPermissionIds()).build()).getResult();
-    }
 }

@@ -4,6 +4,8 @@ import com.dan.shared.sharedlibrary.model.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
 @Entity
 @Table(name = "roles", indexes = {
@@ -24,5 +26,15 @@ public class Role extends BaseEntity {
     @Column(name = "status", nullable = false)
     private Integer status;
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(
+            name="roles_permissions",
+            joinColumns=@JoinColumn(name="role_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="permission_id", referencedColumnName="id"))
+    private Set<Permission> permissions;
 
 }

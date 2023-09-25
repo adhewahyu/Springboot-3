@@ -23,14 +23,15 @@ public class OpenApiConfig {
             "/user/v1/update",
             "/user/v1/delete",
             "/user/v1/info",
-            "/user/v1/detail"
+            "/user/v1/info-detailed"
     };
 
     private static final String[] ROLE_APIS = {
             "/role/v1/create",
             "/role/v1/update",
             "/role/v1/delete",
-            "/role/v1/detail"
+            "/role/v1/info",
+            "/role/v1/info-detailed"
     };
 
     @Bean

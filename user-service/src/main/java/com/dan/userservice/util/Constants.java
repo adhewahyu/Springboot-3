@@ -26,6 +26,8 @@ public class Constants {
     public static final String ERR_MSG_ROLENAME_INVALID = "Invalid Role Name";
     public static final String ERR_MSG_ROLENAME_DUPLICATE = "Duplicate Role Name detected";
 
+    public static final String ERR_MSG_PERMISSIONS_ID_INVALID = "Invalid permission id(s)";
+
     public static final String ERR_MSG_USER_NOT_FOUND = "User is not found";
     public static final String ERR_MSG_ROLE_NOT_FOUND = "Role is not found";
 }

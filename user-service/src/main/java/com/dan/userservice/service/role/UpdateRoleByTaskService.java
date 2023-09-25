@@ -8,6 +8,7 @@ import com.dan.userservice.model.request.*;
 import com.dan.userservice.model.transformer.RoleRequestTransformer;
 import com.dan.userservice.repository.RoleRepository;
 import com.dan.userservice.util.Constants;
+import com.dan.userservice.util.PermissionUtility;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +28,7 @@ public class UpdateRoleByTaskService implements BaseService<UpdateRoleRequest, V
     private final RoleRepository roleRepository;
     private final CreateLogAdaptor createLogAdaptor;
     private final RoleRequestTransformer roleRequestTransformer;
+    private final PermissionUtility permissionUtility;
 
     @Override
     public ValidationResponse execute(UpdateRoleRequest input) {
@@ -37,7 +38,9 @@ public class UpdateRoleByTaskService implements BaseService<UpdateRoleRequest, V
         if (validateRoleService.execute(validateRoleRequest).getResult()) {
             roleRepository.findById(input.getId())
                     .ifPresentOrElse(role -> {
-                                roleRepository.save(roleRequestTransformer.transform(role, input));
+                                role = roleRequestTransformer.transform(role, input);
+                                permissionUtility.doApplyPermissionSet(role, input.getPermissionIds());
+                                roleRepository.save(role);
                                 createLogAdaptor.execute(CreateLogRequest.builder()
                                         .activity(TaskAction.UPDATE.getValue())
                                         .module(Constants.ROLE_MODULE)
@@ -52,6 +55,5 @@ public class UpdateRoleByTaskService implements BaseService<UpdateRoleRequest, V
         }
         return ValidationResponse.builder().result(true).build();
     }
-
 
 }

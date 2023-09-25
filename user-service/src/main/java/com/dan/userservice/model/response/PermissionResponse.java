@@ -7,20 +7,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RoleResponse extends BaseResponse {
+public class PermissionResponse extends BaseResponse {
 
     private String id;
     private String name;
     private String description;
+    private String api;
+    private String category;
+    private Integer accessLevel;
+    private String accessLevelString;
     private Integer status;
     private String statusString;
-    private List<PermissionResponse> permissionResponses;
+    private String parentId;
 
 }

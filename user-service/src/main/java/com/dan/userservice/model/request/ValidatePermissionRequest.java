@@ -12,10 +12,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateRoleRequest extends BaseRequest {
+public class ValidatePermissionRequest extends BaseRequest {
 
-    private String name;
-    private String description;
-    private List<String> permissionIds;
+    List<String> permissionIds;
 
 }

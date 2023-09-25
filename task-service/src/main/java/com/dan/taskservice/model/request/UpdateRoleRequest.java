@@ -1,4 +1,4 @@
-package com.dan.userservice.model.request;
+package com.dan.taskservice.model.request;
 
 import com.dan.shared.sharedlibrary.model.request.BaseRequest;
 import lombok.AllArgsConstructor;
@@ -12,10 +12,12 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateRoleRequest extends BaseRequest {
+public class UpdateRoleRequest extends BaseRequest {
 
+    private String id;
     private String name;
     private String description;
+    private Integer status;
     private List<String> permissionIds;
 
 }

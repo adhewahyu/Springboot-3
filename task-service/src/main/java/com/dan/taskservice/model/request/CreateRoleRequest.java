@@ -1,4 +1,4 @@
-package com.dan.userservice.model.request;
+package com.dan.taskservice.model.request;
 
 import com.dan.shared.sharedlibrary.model.request.BaseRequest;
 import lombok.AllArgsConstructor;

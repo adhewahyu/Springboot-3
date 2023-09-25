@@ -6,9 +6,7 @@ import com.dan.shared.sharedlibrary.model.response.ValidationResponse;
 import com.dan.shared.sharedlibrary.service.BaseService;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
 import com.dan.taskservice.adaptor.audit.CreateLogAdaptor;
-import com.dan.taskservice.adaptor.user.CreateUserByTaskAdaptor;
-import com.dan.taskservice.adaptor.user.DeleteUserByTaskAdaptor;
-import com.dan.taskservice.adaptor.user.UpdateUserByTaskAdaptor;
+import com.dan.taskservice.adaptor.user.*;
 import com.dan.taskservice.enums.TaskAction;
 import com.dan.taskservice.model.entity.Task;
 import com.dan.taskservice.model.request.*;
@@ -36,6 +34,9 @@ public class SubmitTaskService implements BaseService<SubmitTaskRequest, Validat
     private final CreateUserByTaskAdaptor createUserByTaskAdaptor;
     private final UpdateUserByTaskAdaptor updateUserByTaskAdaptor;
     private final DeleteUserByTaskAdaptor deleteUserByTaskAdaptor;
+    private final CreateRoleByTaskAdaptor createRoleByTaskAdaptor;
+    private final UpdateRoleByTaskAdaptor updateRoleByTaskAdaptor;
+    private final DeleteRoleByTaskAdaptor deleteRoleByTaskAdaptor;
 
     @Override
     public ValidationResponse execute(SubmitTaskRequest input) {
@@ -84,6 +85,20 @@ public class SubmitTaskService implements BaseService<SubmitTaskRequest, Validat
                 if(updatedTask.getAction().equals(TaskAction.DELETE.getValue())){
                     FindByIdRequest findByIdRequest = JSON.parseObject(updatedTask.getTaskAfter(), FindByIdRequest.class);
                     deleteUserByTaskAdaptor.execute(findByIdRequest);
+                }
+                break;
+            case Constants.ROLE_MODULE:
+                if(updatedTask.getAction().equals(TaskAction.INSERT.getValue())){
+                    CreateRoleRequest createRoleRequest = JSON.parseObject(updatedTask.getTaskAfter(), CreateRoleRequest.class);
+                    createRoleByTaskAdaptor.execute(createRoleRequest);
+                }
+                if(updatedTask.getAction().equals(TaskAction.UPDATE.getValue())){
+                    UpdateRoleRequest updateRoleRequest = JSON.parseObject(updatedTask.getTaskAfter(), UpdateRoleRequest.class);
+                    updateRoleByTaskAdaptor.execute(updateRoleRequest);
+                }
+                if(updatedTask.getAction().equals(TaskAction.DELETE.getValue())){
+                    FindByIdRequest findByIdRequest = JSON.parseObject(updatedTask.getTaskAfter(), FindByIdRequest.class);
+                    deleteRoleByTaskAdaptor.execute(findByIdRequest);
                 }
                 break;
             default:

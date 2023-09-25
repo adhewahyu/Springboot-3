@@ -89,4 +89,7 @@ integration:
     createUserByTaskUrl: "${integration.user.baseUrl}/user/v1/create-by-task"
     updateUserByTaskUrl: "${integration.user.baseUrl}/user/v1/update-by-task"
     deleteUserByTaskUrl: "${integration.user.baseUrl}/user/v1/delete-by-task"
+    createRoleByTaskUrl: "${integration.user.baseUrl}/role/v1/create-by-task"
+    updateRoleByTaskUrl: "${integration.user.baseUrl}/role/v1/update-by-task"
+    deleteRoleByTaskUrl: "${integration.user.baseUrl}/role/v1/delete-by-task"
     apiKey: 6804b89c-aabe-4be0-8335-651679118d42

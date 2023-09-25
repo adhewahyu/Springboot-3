@@ -1,6 +1,7 @@
 package com.dan.userservice.model.entity;
 
 import com.dan.shared.sharedlibrary.model.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,9 +27,10 @@ public class Role extends BaseEntity {
     @Column(name = "status", nullable = false)
     private Integer status;
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER,
             cascade = {
-                    CascadeType.ALL
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
             })
     @JoinTable(
             name="roles_permissions",

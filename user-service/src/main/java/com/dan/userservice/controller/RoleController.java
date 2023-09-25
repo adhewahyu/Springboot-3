@@ -1,12 +1,13 @@
 package com.dan.userservice.controller;
 
+import com.dan.shared.sharedlibrary.controller.BaseController;
 import com.dan.shared.sharedlibrary.enums.MessageCode;
 import com.dan.shared.sharedlibrary.model.request.FindByIdRequest;
+import com.dan.shared.sharedlibrary.model.request.PageableRequest;
+import com.dan.shared.sharedlibrary.model.request.SpecsAndPageRequest;
 import com.dan.shared.sharedlibrary.model.response.RestResponse;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
-import com.dan.userservice.model.request.CreateRoleRequest;
-import com.dan.userservice.model.request.FindUserByIdRequest;
-import com.dan.userservice.model.request.UpdateRoleRequest;
+import com.dan.userservice.model.request.*;
 import com.dan.userservice.service.role.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,7 +23,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/role")
 @RequiredArgsConstructor
 @Slf4j
-public class RoleController {
+public class RoleController extends BaseController {
 
     private final CreateRoleService createRoleService;
     private final CreateRoleByTaskService createRoleByTaskService;
@@ -31,6 +32,7 @@ public class RoleController {
     private final DeleteRoleService deleteRoleService;
     private final DeleteRoleByTaskService deleteRoleByTaskService;
     private final FindRoleByIdService findRoleByIdService;
+    private final GetRolesService getRolesService;
 
     @Operation(summary = "Create New Role to Task List",
             description = "API to create new role and put to task list for approval")
@@ -153,6 +155,25 @@ public class RoleController {
                         .id(id)
                         .slimResponse(false)
                         .build()),
+                        CommonConstants.SUCCESS_MSG_DATA_FOUND, MessageCode.OK.getValue(), true), HttpStatus.OK));
+    }
+
+    @Operation(summary = "Get Roles",
+            description = "API to get roles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "500", description = "Oops")
+    })
+    @GetMapping("/v1/")
+    public Mono<ResponseEntity<RestResponse>> getRoles(PageableRequest pageableRequest){
+        SpecsAndPageRequest specsAndPageRequest = SpecsAndPageRequest.builder()
+                .specification(null)
+                .pageable(buildPageableFromRequest(pageableRequest))
+                .build();
+        return Mono.just(new ResponseEntity<>(
+                new RestResponse(getRolesService.execute(specsAndPageRequest),
                         CommonConstants.SUCCESS_MSG_DATA_FOUND, MessageCode.OK.getValue(), true), HttpStatus.OK));
     }
 

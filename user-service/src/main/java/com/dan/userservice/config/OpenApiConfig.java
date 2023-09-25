@@ -31,7 +31,8 @@ public class OpenApiConfig {
             "/role/v1/update",
             "/role/v1/delete",
             "/role/v1/info",
-            "/role/v1/info-detailed"
+            "/role/v1/info-detailed",
+            "/role/v1"
     };
 
     @Bean

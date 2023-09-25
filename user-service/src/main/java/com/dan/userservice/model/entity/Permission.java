@@ -2,11 +2,12 @@ package com.dan.userservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "permissions", indexes = {
         @Index(name = "permission_idx_0", columnList = "category"),
@@ -41,12 +42,13 @@ public class Permission {
     @Column(name = "parent_id", length = 100)
     private String parentId;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-                    CascadeType.ALL
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
             },
             mappedBy = "permissions")
-    @JsonIgnore
     private Set<Role> roles;
 
 }

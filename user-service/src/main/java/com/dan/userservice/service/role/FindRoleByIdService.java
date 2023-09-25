@@ -5,14 +5,10 @@ import com.dan.shared.sharedlibrary.util.CommonConstants;
 import com.dan.userservice.enums.TaskAction;
 import com.dan.userservice.model.request.FindUserByIdRequest;
 import com.dan.userservice.model.request.ValidateRoleRequest;
-import com.dan.userservice.model.request.ValidateUserRequest;
 import com.dan.userservice.model.response.RoleResponse;
-import com.dan.userservice.model.response.UserResponse;
 import com.dan.userservice.model.transformer.RoleResponseTransformer;
-import com.dan.userservice.model.transformer.UserResponseTransformer;
+import com.dan.userservice.repository.PermissionRepository;
 import com.dan.userservice.repository.RoleRepository;
-import com.dan.userservice.repository.UserDetailRepository;
-import com.dan.userservice.service.user.ValidateUserService;
 import com.dan.userservice.util.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +19,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 @Service
 @RequiredArgsConstructor
@@ -32,6 +31,7 @@ public class FindRoleByIdService implements BaseService<FindUserByIdRequest, Rol
     private final ValidateRoleService validateRoleService;
     private final RoleRepository roleRepository;
     private final RoleResponseTransformer roleResponseTransformer;
+    private final PermissionRepository permissionRepository;
 
     @Override
     public RoleResponse execute(FindUserByIdRequest input) {
@@ -40,8 +40,10 @@ public class FindRoleByIdService implements BaseService<FindUserByIdRequest, Rol
         validateRoleRequest.setTaskAction(TaskAction.VIEW.getValue());
         if (validateRoleService.execute(validateRoleRequest).getResult()) {
             return roleRepository.findById(input.getId())
-                    .map(data -> roleResponseTransformer.transform(data, input.isSlimResponse())
-                    ).orElseThrow(() -> {
+                    .map(data -> {
+                        data.setPermissions(new HashSet<>(permissionRepository.getPermissionByRoleId(data.getId())));
+                        return roleResponseTransformer.transform(data, input.isSlimResponse());
+                    }).orElseThrow(() -> {
                         log.error(Constants.ERR_MSG_ROLE_NOT_FOUND);
                         throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.ERR_MSG_ROLE_NOT_FOUND);
                     });

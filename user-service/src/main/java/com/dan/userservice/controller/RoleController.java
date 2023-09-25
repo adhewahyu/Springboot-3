@@ -122,6 +122,23 @@ public class RoleController {
                         deleteRoleByTaskService.execute(request).getResult()), HttpStatus.OK));
     }
 
+    @Operation(summary = "Find Role with basic info",
+            description = "API to find role basic information")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "500", description = "Oops")
+    })
+    @GetMapping(value = "/v1/info/{id}")
+    public Mono<ResponseEntity<RestResponse>> getRoleBasicInfo(@PathVariable("id") String id){
+        return Mono.just(new ResponseEntity<>(
+                new RestResponse(findRoleByIdService.execute(FindUserByIdRequest.builder()
+                        .id(id)
+                        .slimResponse(true)
+                        .build()),
+                        CommonConstants.SUCCESS_MSG_DATA_FOUND, MessageCode.OK.getValue(), true), HttpStatus.OK));
+    }
+
     @Operation(summary = "Find Role with detailed info",
             description = "API to find role detailed information")
     @ApiResponses(value = {
@@ -129,14 +146,14 @@ public class RoleController {
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "500", description = "Oops")
     })
-    @GetMapping(value = "/v1/detail/{id}")
+    @GetMapping(value = "/v1/info-detailed/{id}")
     public Mono<ResponseEntity<RestResponse>> getRoleDetailedInfo(@PathVariable("id") String id){
         return Mono.just(new ResponseEntity<>(
                 new RestResponse(findRoleByIdService.execute(FindUserByIdRequest.builder()
                         .id(id)
                         .slimResponse(false)
                         .build()),
-                        CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, MessageCode.OK.getValue(), true), HttpStatus.OK));
+                        CommonConstants.SUCCESS_MSG_DATA_FOUND, MessageCode.OK.getValue(), true), HttpStatus.OK));
     }
 
 }

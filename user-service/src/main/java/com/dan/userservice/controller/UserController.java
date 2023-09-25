@@ -135,7 +135,7 @@ public class UserController {
                         .id(id)
                         .slimResponse(true)
                         .build()),
-                        CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, MessageCode.OK.getValue(), true), HttpStatus.OK));
+                        CommonConstants.SUCCESS_MSG_DATA_FOUND, MessageCode.OK.getValue(), true), HttpStatus.OK));
     }
 
     @Operation(summary = "Find User with detailed info",
@@ -145,14 +145,14 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "500", description = "Oops")
     })
-    @GetMapping(value = "/v1/detail/{id}")
+    @GetMapping(value = "/v1/info-detailed/{id}")
     public Mono<ResponseEntity<RestResponse>> getUserDetailedInfo(@PathVariable("id") String id){
         return Mono.just(new ResponseEntity<>(
                 new RestResponse(findUserByIdService.execute(FindUserByIdRequest.builder()
                         .id(id)
                         .slimResponse(false)
                         .build()),
-                        CommonConstants.SUCCESS_MSG_DATA_SUBMITTED, MessageCode.OK.getValue(), true), HttpStatus.OK));
+                        CommonConstants.SUCCESS_MSG_DATA_FOUND, MessageCode.OK.getValue(), true), HttpStatus.OK));
     }
 
 }

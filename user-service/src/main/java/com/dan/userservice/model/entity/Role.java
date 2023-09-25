@@ -28,8 +28,7 @@ public class Role extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
+                    CascadeType.ALL
             })
     @JoinTable(
             name="roles_permissions",

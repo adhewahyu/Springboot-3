@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,5 +21,6 @@ public class RoleResponse extends BaseResponse {
     private String description;
     private Integer status;
     private String statusString;
+    private List<PermissionResponse> permissionResponses;
 
 }

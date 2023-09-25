@@ -4,11 +4,8 @@ import com.dan.shared.sharedlibrary.model.transformer.MessageTransformer;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
 import com.dan.userservice.enums.PermissionAccessLevel;
 import com.dan.userservice.enums.PermissionStatus;
-import com.dan.userservice.enums.RoleStatus;
 import com.dan.userservice.model.entity.Permission;
-import com.dan.userservice.model.entity.Role;
 import com.dan.userservice.model.response.PermissionResponse;
-import com.dan.userservice.model.response.RoleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

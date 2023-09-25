@@ -43,8 +43,7 @@ public class Permission {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
+                    CascadeType.ALL
             },
             mappedBy = "permissions")
     @JsonIgnore

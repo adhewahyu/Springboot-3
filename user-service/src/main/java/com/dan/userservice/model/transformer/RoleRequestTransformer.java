@@ -6,6 +6,7 @@ import com.dan.shared.sharedlibrary.util.CommonUtility;
 import com.dan.userservice.enums.RoleStatus;
 import com.dan.userservice.model.entity.Role;
 import com.dan.userservice.model.request.*;
+import com.dan.userservice.repository.PermissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class RoleRequestTransformer implements MessageTransformer<CreateRoleRequ
         role.setId(commonUtility.getRandomUUID());
         role.setName(validateRoleRequest.getName());
         role.setDescription(validateRoleRequest.getDescription());
-        role.setStatus(RoleStatus.NEW.getValue());
+        role.setStatus(RoleStatus.ACTIVE.getValue());
         role.setCreatedBy(CommonConstants.SYSTEM);
         role.setCreatedDate(new Date());
         return role;

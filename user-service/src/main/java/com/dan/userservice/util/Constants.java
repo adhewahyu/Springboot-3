@@ -5,6 +5,11 @@ public class Constants {
     public static final String USER_MODULE = "USER";
     public static final String ROLE_MODULE = "ROLE";
 
+    public static final String TAG_ROLE_API = "Role APIs";
+    public static final String TAG_ROLE_API_DESCRIPTION = "Role API Collection";
+    public static final String TAG_USER_API = "User APIs";
+    public static final String TAG_USER_API_DESCRIPTION = "User API Collection";
+
     public static final String ERR_MSG_USERNAME_REQUIRED = "Username is required";
     public static final String ERR_MSG_USERNAME_INVALID = "Invalid Username";
     public static final String ERR_MSG_FIRSTNAME_REQUIRED = "First Name is required";

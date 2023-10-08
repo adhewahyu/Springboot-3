@@ -32,7 +32,7 @@ public class OpenApiConfig {
             "/role/v1/delete",
             "/role/v1/info",
             "/role/v1/info-detailed",
-            "/role/v1"
+            "/role/v1/search"
     };
 
     @Bean
@@ -40,7 +40,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("User Service Docs")
-                        .description("This is description")
+                        .description("User Microservice API Collection. For development purpose only.")
                         .version("v0.1")
                         .termsOfService("https://swagger.io/terms/")
                         .contact(new io.swagger.v3.oas.models.info.Contact().name("Adhe Wahyu A.").url("").email("adhe.wahyu.ardanto@gmail.com"))

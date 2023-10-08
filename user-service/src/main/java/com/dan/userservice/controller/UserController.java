@@ -8,9 +8,11 @@ import com.dan.userservice.model.request.CreateUserRequest;
 import com.dan.userservice.model.request.FindUserByIdRequest;
 import com.dan.userservice.model.request.UpdateUserRequest;
 import com.dan.userservice.service.user.*;
+import com.dan.userservice.util.Constants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/user")
+@Tag(name = Constants.TAG_USER_API, description = Constants.TAG_USER_API_DESCRIPTION)
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {

@@ -9,9 +9,11 @@ import com.dan.shared.sharedlibrary.model.response.RestResponse;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
 import com.dan.userservice.model.request.*;
 import com.dan.userservice.service.role.*;
+import com.dan.userservice.util.Constants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/role")
+@Tag(name = Constants.TAG_ROLE_API, description = Constants.TAG_ROLE_API_DESCRIPTION)
 @RequiredArgsConstructor
 @Slf4j
 public class RoleController extends BaseController {
@@ -166,7 +169,7 @@ public class RoleController extends BaseController {
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "500", description = "Oops")
     })
-    @GetMapping("/v1/")
+    @GetMapping("/v1/search")
     public Mono<ResponseEntity<RestResponse>> getRoles(PageableRequest pageableRequest){
         SpecsAndPageRequest specsAndPageRequest = SpecsAndPageRequest.builder()
                 .specification(null)

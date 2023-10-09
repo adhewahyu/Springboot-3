@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -24,5 +26,5 @@ public class PermissionResponse extends BaseResponse {
     private Integer status;
     private String statusString;
     private String parentId;
-
+    private List<PermissionResponse> childPermissions;
 }

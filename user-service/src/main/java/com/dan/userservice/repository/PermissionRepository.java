@@ -20,4 +20,13 @@ public interface PermissionRepository extends JpaRepository<Permission, String>,
             " where rp.role_id = :roleId ", nativeQuery = true)
     List<Permission> getPermissionByRoleId(@Param("roleId") String roleId);
 
+    @Query(value = " select * from permissions where parent_id = :parentId and status = 1 ", nativeQuery = true)
+    List<Permission> getActivePermissionsByParentId(@Param("parentId") String parentId);
+
+    @Query(value = " select * from permissions where access_level = 0 and status = 1", nativeQuery = true)
+    List<Permission> getActiveRootPermissions();
+
+    @Query(value = " select count(id) from permissions where parent_id = :parentId and status = 1 ", nativeQuery = true)
+    Integer countActiveChildPermissionsByParentId(@Param("parentId") String parentId);
+
 }

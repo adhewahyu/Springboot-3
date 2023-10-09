@@ -9,6 +9,8 @@ public class Constants {
     public static final String TAG_ROLE_API_DESCRIPTION = "Role API Collection";
     public static final String TAG_USER_API = "User APIs";
     public static final String TAG_USER_API_DESCRIPTION = "User API Collection";
+    public static final String TAG_PERMISSION_API = "Permission APIs";
+    public static final String TAG_PERMISSION_API_DESCRIPTION = "Permission API Collection";
 
     public static final String ERR_MSG_USERNAME_REQUIRED = "Username is required";
     public static final String ERR_MSG_USERNAME_INVALID = "Invalid Username";

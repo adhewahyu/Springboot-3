@@ -3,10 +3,12 @@ package com.dan.userservice.controller;
 import com.dan.shared.sharedlibrary.controller.BaseController;
 import com.dan.shared.sharedlibrary.enums.MessageCode;
 import com.dan.shared.sharedlibrary.model.request.FindByIdRequest;
-import com.dan.shared.sharedlibrary.model.request.PageableRequest;
+import com.dan.shared.sharedlibrary.model.request.SearchRequest;
+import com.dan.shared.sharedlibrary.model.request.SpecificationRequest;
 import com.dan.shared.sharedlibrary.model.request.SpecsAndPageRequest;
 import com.dan.shared.sharedlibrary.model.response.RestResponse;
 import com.dan.shared.sharedlibrary.util.CommonConstants;
+import com.dan.userservice.model.entity.Role;
 import com.dan.userservice.model.request.*;
 import com.dan.userservice.service.role.*;
 import com.dan.userservice.util.Constants;
@@ -16,10 +18,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/role")
@@ -170,10 +176,15 @@ public class RoleController extends BaseController {
             @ApiResponse(responseCode = "500", description = "Oops")
     })
     @GetMapping("/v1/search")
-    public Mono<ResponseEntity<RestResponse>> getRoles(PageableRequest pageableRequest){
+    public Mono<ResponseEntity<RestResponse>> getRoles(SearchRequest searchRequest){
+        Specification<Role> specification = StringUtils.isNotEmpty(searchRequest.getTextSearch()) ?
+                buildSearchSpecification(List.of("name","description"), SpecificationRequest.builder()
+                        .textSearch(searchRequest.getTextSearch())
+                        .showDeleted(false)
+                        .build()) : null;
         SpecsAndPageRequest specsAndPageRequest = SpecsAndPageRequest.builder()
-                .specification(null)
-                .pageable(buildPageableFromRequest(pageableRequest))
+                .specification(specification)
+                .pageable(buildPageableFromRequest(searchRequest))
                 .build();
         return Mono.just(new ResponseEntity<>(
                 new RestResponse(getRolesService.execute(specsAndPageRequest),

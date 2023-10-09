@@ -35,6 +35,10 @@ public class OpenApiConfig {
             "/role/v1/search"
     };
 
+    private static final String[] PERMISSION_APIS = {
+            "/permissions/v1/stacked"
+    };
+
     @Bean
     public OpenAPI baseSpringdoc() {
         return new OpenAPI()
@@ -74,6 +78,16 @@ public class OpenApiConfig {
                 .displayName("Role Recipe")
                 .packagesToScan(BASE_PACKAGE)
                 .pathsToMatch(ROLE_APIS)
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi permissionAPIs(){
+        return GroupedOpenApi.builder()
+                .group("Permission Recipe")
+                .displayName("Permission Recipe")
+                .packagesToScan(BASE_PACKAGE)
+                .pathsToMatch(PERMISSION_APIS)
                 .build();
     }
 

@@ -1,6 +1,5 @@
 package com.dan.userservice.service.permission;
 
-import com.alibaba.fastjson2.JSON;
 import com.dan.shared.sharedlibrary.model.request.BaseRequest;
 import com.dan.shared.sharedlibrary.service.BaseService;
 import com.dan.userservice.model.entity.Permission;
@@ -11,14 +10,12 @@ import com.dan.userservice.repository.PermissionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -35,7 +32,6 @@ public class GetStackedPermissionService implements BaseService<BaseRequest, Sta
         return StackedPermissionResponse.builder()
                 .permissionResponses(permissionResponses)
                 .build();
-
     }
 
     private List<PermissionResponse> getStackedPermissionResponse(boolean isParent, String parentId){

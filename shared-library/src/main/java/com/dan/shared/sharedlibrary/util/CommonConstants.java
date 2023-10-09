@@ -18,4 +18,9 @@ public class CommonConstants {
     public static final String ERR_MSG_DATA_NOT_FOUND = "Data not found";
     public static final String ERR_MSG_SOMETHING_WRONG = "Something went wrong";
 
+    public static final String ERR_MSG_SPECIFICATION_COLUMNS_EMPTY = "Columns to search is empty";
+    public static final String ERR_MSG_SPECIFICATION_DELETED_COLUMN_EMPTY = "Deleted column is empty";
+    public static final String ERR_MSG_SPECIFICATION_DELETED_VALUE_EMPTY = "Deleted value is empty";
+
+
 }

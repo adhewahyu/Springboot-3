@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PageableRequest extends BaseRequest {
+public class SpecificationRequest extends BaseRequest{
 
-    private int page;
-    private int size;
-    private String sortBy;
-    private String sortOrder;
+    private String textSearch;
+
+    private boolean showDeleted;
+    private String deletedColumn;
+    private String deletedValue;
 
 }
